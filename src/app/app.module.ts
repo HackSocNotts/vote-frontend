@@ -9,12 +9,14 @@ import { AppRouterModule } from './app-router.module';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { LoginComponent } from './pages/login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
