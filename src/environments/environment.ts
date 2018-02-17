@@ -7,10 +7,10 @@ export const environment = {
   production: false,
   firebase: {
     apiKey: 'AIzaSyAfYcyD4gkifod_IC5UXFdkWHDqZOV3eqI',
-    authDomain: '<your-project-authdomain>',
-    databaseURL: '<your-database-URL>',
+    authDomain: 'eballot-46bb1.firebaseapp.com',
+    databaseURL: 'https://eballot-46bb1.firebaseio.com',
     projectId: 'eballot-46bb1',
-    storageBucket: '<your-storage-bucket>',
-    messagingSenderId: '<your-messaging-sender-id>'
+    storageBucket: 'eballot-46bb1.appspot.com',
+    messagingSenderId: '515038220810'
   }
 };
