@@ -15,13 +15,22 @@ export class LoginComponent implements OnInit {
   }
 
   login(method: string) {
-    switch (method) {
-      case 'google':
-        return this.googleLogin();
 
-      default:
-        return false;
+    let loginData;
+
+    if (method === 'google') {
+      loginData = this.googleLogin();
+    } else if (method === 'facebook') {
+      loginData = this.facebookLogin();
+    } else if (method === 'github') {
+      loginData = this.githubLogin();
+    } else {
+      return false;
     }
+
+    loginData.then((credential) => {
+      console.log(credential);
+    });
   }
 
   googleLogin() {
@@ -29,11 +38,18 @@ export class LoginComponent implements OnInit {
     return this.oAuthLogin(provider);
   }
 
+  facebookLogin() {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    return this.oAuthLogin(provider);
+  }
+
+  githubLogin() {
+    const provider = new firebase.auth.GithubAuthProvider();
+    return this.oAuthLogin(provider);
+  }
+
   oAuthLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) => {
-        console.log(credential);
-      });
+    return this.afAuth.auth.signInWithPopup(provider);
   }
 
 }
