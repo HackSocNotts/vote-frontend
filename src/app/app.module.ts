@@ -6,6 +6,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { AppRouterModule } from './app-router.module';
 import { SuiModule } from 'ng2-semantic-ui';
+import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -29,7 +30,8 @@ import { CreateComponent } from './pages/create/create.component';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AppRouterModule,
-    SuiModule
+    SuiModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
