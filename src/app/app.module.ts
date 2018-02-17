@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
+import { CreateComponent } from './pages/create/create.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { LogoutComponent } from './pages/logout/logout.component';
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
