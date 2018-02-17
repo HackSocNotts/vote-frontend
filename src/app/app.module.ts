@@ -5,6 +5,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { AppRouterModule } from './app-router.module';
+import { SuiModule } from 'ng2-semantic-ui';
 
 
 import { AppComponent } from './app.component';
@@ -27,7 +28,8 @@ import { CreateComponent } from './pages/create/create.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AppRouterModule
+    AppRouterModule,
+    SuiModule
   ],
   providers: [],
   bootstrap: [AppComponent]
