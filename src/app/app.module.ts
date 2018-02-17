@@ -10,6 +10,7 @@ import { AppRouterModule } from './app-router.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { LoginComponent } from './pages/login/login.component';
+import { LogoutComponent } from './pages/logout/logout.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { LoginComponent } from './pages/login/login.component';
     AppComponent,
     NavbarComponent,
     LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
