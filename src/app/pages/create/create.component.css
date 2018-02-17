@@ -1,0 +1,13 @@
+.ui.progress:first-child {
+  margin-bottom: 0;
+}
+.ui.steps {
+  margin-top: 0;
+}
+.column {
+  /*width: 600px;*/
+}
+.ui.segment {
+  width: 100%;
+  margin: 0;
+}
