@@ -24,6 +24,7 @@ import { BallotComponent } from './pages/ballot/ballot.component';
 import {BallotService} from './services/ballot.service';
 import { AboutComponent } from './pages/about/about.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import {ElectorateService} from './services/electorate.service';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
   providers: [
     ElectionService,
     BallotService,
-    AuthGuard
+    AuthGuard,
+    ElectorateService
   ],
   bootstrap: [AppComponent]
 })
