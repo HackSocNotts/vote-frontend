@@ -3,6 +3,7 @@ import { AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { ElectionService } from '../../services/election.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   constructor(
     public afAuth: AngularFireAuth,
     private election: ElectionService,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService
   ) { }
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('create');
       } else {
         const electionID = data[0].payload.doc.id;
+        this.localStorage.add('election', electionID);
         // Save election id to local data
         // this.router.navigateByUrl('dashboard');
       }
