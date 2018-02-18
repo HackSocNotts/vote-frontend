@@ -18,7 +18,7 @@
     <div class="column twelve wide">
       <div class="ui huge action input">
         <input type="text" placeholder="Electorate Code" (keyup)="checkCode()" [(ngModel)]="code">
-        <button class="ui huge button" [ngClass]="{'primary': validCode}">
+        <button class="ui huge button" [ngClass]="{'primary': validCode}" (click)="continue()">
           <i class="sign in icon"></i>
           Begin
         </button>

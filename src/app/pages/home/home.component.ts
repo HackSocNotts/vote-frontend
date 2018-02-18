@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ElectionService} from '../../services/election.service';
+import { LocalStorageService } from 'angular-2-local-storage';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +27,9 @@ export class HomeComponent implements OnInit {
   validCode = false;
 
   constructor(
-    private electionService: ElectionService
+    private electionService: ElectionService,
+    private localStorage: LocalStorageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -87,4 +91,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  continue () {
+    if(this.validCode) {
+      this.localStorage.set('election', this.election);
+      this.localStorage.set('elector', this.elector);
+      this.router.navigateByUrl('/ballot');
+    } else {
+      this.showInvalidCodeError('Code must be valid before continuing.');
+    }
+  }
 }
