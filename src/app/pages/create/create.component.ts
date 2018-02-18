@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ElectionService } from '../../services/election.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'app-create',
@@ -22,10 +25,15 @@ export class CreateComponent implements OnInit {
   showCode = false;
   showReview = false;
 
-  constructor() { }
+  constructor(
+    private election: ElectionService,
+    private auth: AngularFireAuth,
+    private localStorage: LocalStorageService
+  ) { }
 
   ngOnInit() {
     this.progress = 33;
+    this.showAdd = true;
   }
 
   canContinue() {
@@ -92,14 +100,36 @@ export class CreateComponent implements OnInit {
   }
 
   checkCode() {
-  //  Firebase check code
     if (this.electionCode.length !== 5) {
       this.error = 'ID must be 5 characters long';
     } else if (!this.isAlphaNumeric(this.electionCode)) {
       this.error = 'ID must be alphanumeric';
     } else {
-      this.error = '';
+      this.election.getDocument(this.electionCode).subscribe((data) => {
+        if (data) {
+          this.error = 'Code already exists';
+        } else {
+          this.error = '';
+        }
+      });
     }
+  }
+
+  addElection() {
+    this.checkName(); this.checkDescription(); this.checkCode();
+    if (!this.canContinue()) {
+      this.toAdd();
+    }
+
+    this.auth.authState.subscribe(authState => {
+      const user_id = authState.uid;
+      const newDocument = this.election.addElection(this.electionCode, this.electionName, this.description, user_id);
+      newDocument.then(data => {
+        this.localStorage.set('election', this.electionCode);
+      }).catch(err => {
+        console.error(err);
+      });
+    });
   }
 
   isAlphaNumeric(ch) {
