@@ -33,6 +33,9 @@
         <div class="ui list">
           <div class="item" *ngFor="let code of electorateCodes">
             {{code.id}}
+            <a class="red icon right floated" (click)="deleteCode(code.id)">
+              <i class="minus icon"></i>
+            </a>
           </div>
         </div>
       </div>
