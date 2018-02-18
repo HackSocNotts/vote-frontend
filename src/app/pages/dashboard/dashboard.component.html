@@ -32,6 +32,16 @@
         <h3 class="ui header">Electorate Codes</h3>
       </div>
     </div>
+    <div class="ui eight wide column">
+      <button class="large fluid red animated ui button" (click)="deleteAccount()">
+        <div class="visible content">
+          Delete
+        </div>
+        <div class="hidden content">
+          This is non-reversible
+        </div>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -66,6 +76,6 @@
       <option value="3">Single Seat</option>
       <option value="4">Multiple Seat</option>
     </select>
-    <button class="ui primary button" (click)="addNewBallot()">Add</button>
+    <button class="ui primary button" (click)="addNewBallot(); modal.deny()">Add</button>
   </div>
 </ng-template>
