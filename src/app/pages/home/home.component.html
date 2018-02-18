@@ -5,7 +5,7 @@
       <div class="header">
         {{error}}
       </div>
-      <p>Details coming soon</p>
+      <p>{{errorMessage}}</p>
     </div>
     <div class="ui hidden divider"></div>
   </div>
@@ -18,7 +18,7 @@
     <div class="column twelve wide">
       <div class="ui huge action input">
         <input type="text" placeholder="Electorate Code" (keyup)="checkCode()" [(ngModel)]="code">
-        <button class="ui primary huge button">
+        <button class="ui huge button" [ngClass]="{'primary': validCode}">
           <i class="sign in icon"></i>
           Begin
         </button>
