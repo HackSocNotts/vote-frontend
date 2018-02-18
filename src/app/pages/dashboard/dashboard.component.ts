@@ -5,6 +5,7 @@ import {BallotService} from '../../services/ballot.service';
 import {SuiModalService, TemplateModalConfig, ModalTemplate} from 'ng2-semantic-ui';
 import {BallotModel} from '../../models/ballot-model';
 import {Router} from '@angular/router';
+import {ElectorateService} from '../../services/electorate.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,8 @@ export class DashboardComponent implements OnInit {
 
   ballots: any;
 
+  electorateCodes: any;
+
   newBallotName: string;
 
   newBallotDescription: string;
@@ -33,7 +36,8 @@ export class DashboardComponent implements OnInit {
     private electionService: ElectionService,
     private ballotService: BallotService,
     public modalService: SuiModalService,
-    private router: Router
+    private router: Router,
+    private electorate: ElectorateService
   ) { }
 
   ngOnInit() {
@@ -43,6 +47,23 @@ export class DashboardComponent implements OnInit {
         this.election = data;
         this.election.id = election_id;
         this.retrieveBallots();
+        this.retrieveCodes();
+      });
+  }
+
+  private retrieveCodes() {
+    const election_id = this.election.id;
+    this.electorate.getElectorate(election_id)
+      .subscribe(data => {
+        const codes = [];
+        for (let i = 0; i < data.length; i++) {
+         const elector = data[i];
+         codes[i] = {
+           id: elector.payload.doc.id
+         };
+        }
+        this.electorateCodes = codes;
+        console.log(this.electorateCodes);
       });
   }
 
