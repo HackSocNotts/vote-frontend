@@ -19,6 +19,9 @@ export class DashboardComponent implements OnInit {
   @ViewChild('addBallotModalTemplate')
   public addBallotModalTemplate: ModalTemplate<any, any, any>;
 
+  @ViewChild('addCodesModal')
+  public addCodesModal: ModalTemplate<any, any, any>;
+
   election: any;
 
   ballots: any;
@@ -30,6 +33,8 @@ export class DashboardComponent implements OnInit {
   newBallotDescription: string;
 
   newBallotType: number;
+
+  newCodesCount: number;
 
   constructor(
     private localStorage: LocalStorageService,
@@ -127,6 +132,15 @@ export class DashboardComponent implements OnInit {
   deleteAccount() {
     this.electionService.deleteElection(this.election.id);
     this.router.navigateByUrl('/logout');
+  }
+
+  showGenerateCodes() {
+    const config = new TemplateModalConfig<any, any, any>(this.addCodesModal);
+    this.modalService.open(config);
+  }
+
+  generateCodes() {
+    this.electorate.generate(this.newCodesCount);
   }
 
 }

@@ -29,7 +29,7 @@
     </div>
     <div class="ui eight wide column">
       <div class="ui segment">
-        <h3 class="ui header">Electorate Codes</h3>
+        <h3 class="ui header">Electorate Codes <a class="right floated" (click)="showGenerateCodes()"><small>Generate</small></a></h3>
         <div class="ui list">
           <div class="item" *ngFor="let code of electorateCodes">
             {{code.id}}
@@ -82,5 +82,17 @@
       <option value="4">Multiple Seat</option>
     </select>
     <button class="ui primary button" (click)="addNewBallot(); modal.deny()">Add</button>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #addCodesModal>
+  <div class="header">Generate Codes</div>
+  <div class="content">
+    How many codes would you like to generate?&nbsp;
+    <div class="ui labeled input">
+      <div class="ui label">Number of Codes</div>
+      <input type="number" [(ngModel)]="newCodesCount">
+    </div>
+    <button class="ui primary button" (click)="generateCodes(); modal.deny()">Generate</button>
   </div>
 </ng-template>
