@@ -4,6 +4,7 @@ import {ElectionService} from '../../services/election.service';
 import {BallotService} from '../../services/ballot.service';
 import {SuiModalService, TemplateModalConfig, ModalTemplate} from 'ng2-semantic-ui';
 import {BallotModel} from '../../models/ballot-model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,7 +32,8 @@ export class DashboardComponent implements OnInit {
     private localStorage: LocalStorageService,
     private electionService: ElectionService,
     private ballotService: BallotService,
-    public modalService: SuiModalService
+    public modalService: SuiModalService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -96,7 +98,14 @@ export class DashboardComponent implements OnInit {
       type: this.newBallotType
     };
     this.ballotService.addBallot(this.election.id, data);
-    const config = new TemplateModalConfig<any, any, any>(this.addBallotModalTemplate);
-    this.modalService.close(config);
+    this.newBallotName = '';
+    this.newBallotDescription = '';
+    this.newBallotType = 0;
   }
+
+  deleteAccount() {
+    this.electionService.deleteElection(this.election.id);
+    this.router.navigateByUrl('/logout');
+  }
+
 }
