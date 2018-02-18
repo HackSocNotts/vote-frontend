@@ -1,3 +1,33 @@
-<p>
-  home works!
-</p>
+<div class="ui container">
+  <div class="ui hidden divider"></div>
+  <div *ngIf="error">
+    <div class="ui negative message">
+      <div class="header">
+        {{error}}
+      </div>
+      <p>Details coming soon</p>
+    </div>
+    <div class="ui hidden divider"></div>
+  </div>
+  <h1 class="ui primary header">Welcome to BallotApp.tech</h1>
+  <p>If you have an electorate code? Enter it below. If you don't have one, ask your committee for one.</p>
+  <p>Your electorate code should be 13 characters long with a hyphen in the middle.</p>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui one column center aligned page grid">
+    <div class="column twelve wide">
+      <div class="ui huge action input">
+        <input type="text" placeholder="Electorate Code" (keyup)="checkCode()" [(ngModel)]="code">
+        <button class="ui primary huge button">
+          <i class="sign in icon"></i>
+          Begin
+        </button>
+      </div>
+      <div *ngIf="electionObject">
+        <div class="ui hidden divider"></div>
+        <h2 class="ui teal header" >{{electionObject.name}}</h2>
+        <p>{{electionObject.description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
