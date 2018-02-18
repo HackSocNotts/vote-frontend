@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('create');
       } else {
         const electionID = data[0].payload.doc.id;
-        this.localStorage.add('election', electionID);
+        this.localStorage.set('election', electionID);
         this.router.navigateByUrl('dashboard');
       }
     });
