@@ -1,3 +1,47 @@
-<p>
-  dashboard works!
-</p>
+<div class="ui container">
+  <div class="ui hidden divider"></div>
+  <h1 class="ui teal header">Dashboard<span *ngIf="election"> - {{election.name}}</span></h1>
+  <div class="ui hidden divider"></div>
+  <div class="ui grid">
+    <div class="ui eight wide column">
+      <div class="ui segment">
+        <h3 class="ui header">Ballots</h3>
+        <div class="ui list" *ngIf="ballots">
+          <div class="item" *ngFor="let ballot of ballots">
+            <div class="header">{{ballot.name}}</div>
+            {{ballot.description}}
+            <a class="icon right floated" (click)="viewBallot(ballot.id)">
+              <i class="eye icon"></i>
+            </a>
+            <a class="red icon right floated" (click)="deleteBallot(ballot.id)">
+              <i class="minus icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui eight wide column">
+      <div class="ui segment">
+        <h3 class="ui header">Candidates</h3>
+      </div>
+    </div>
+    <div class="ui eight wide column">
+      <div class="ui segment">
+        <h3 class="ui header">Electorate Codes</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template let-context let-modal="modal" #ballotModalTemplate>
+  <div class="header">{{context.name}}</div>
+  <div class="content">
+    <p><strong>Type: </strong><span *ngIf="context.type"></span></p>
+    <p><strong>Description: </strong>{{context.description}}</p>
+    <div class="ui list" *ngIf="context.options">
+      <div class="item" *ngFor="let option of context.options">
+        {{ option.name }}
+      </div>
+    </div>
+  </div>
+</ng-template>
