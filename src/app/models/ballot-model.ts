@@ -27,12 +27,12 @@ export interface BallotModel {
    * Type of ballot being used. See BallotType enum for details of types
    * @var BallotType
    */
-  type: BallotType;
+  type: BallotType | string;
 
   /**
    * The options for the ballot
    * @var BallotOption[] Array of BallotOption interfaces
    * @var null used when the type is Basic
    */
-  options: BallotOption[] | null;
+  options: BallotOption[] | null | any;
 }
