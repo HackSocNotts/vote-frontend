@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit {
   }
 
   generateCodes() {
-    this.electorate.generate(this.newCodesCount);
+    this.electorate.generate(this.newCodesCount, this.election.id);
   }
 
 }
