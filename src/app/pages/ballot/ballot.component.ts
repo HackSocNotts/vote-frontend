@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ElectionService} from '../../services/election.service';
+import {LocalStorageService} from 'angular-2-local-storage';
 
 @Component({
   selector: 'app-ballot',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BallotComponent implements OnInit {
 
-  constructor() { }
+  election: any;
+
+  constructor(
+    private electionService: ElectionService,
+    private localStorage: LocalStorageService
+  ) { }
 
   ngOnInit() {
+    this.electionService.getDocument(this.localStorage.get('election'))
+      .subscribe(data => {
+        this.election = data;
+        console.log(this.election);
+      });
   }
 
 }
