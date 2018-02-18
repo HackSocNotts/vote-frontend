@@ -9,6 +9,8 @@ import { SuiModule } from 'ng2-semantic-ui';
 import { FormsModule } from '@angular/forms';
 import { LocalStorageModule } from 'angular-2-local-storage';
 
+import { AuthGuard } from './auth.guard';
+
 import { ElectionService } from './services/election.service';
 
 
@@ -41,7 +43,8 @@ import { CreateComponent } from './pages/create/create.component';
     })
   ],
   providers: [
-    ElectionService
+    ElectionService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
