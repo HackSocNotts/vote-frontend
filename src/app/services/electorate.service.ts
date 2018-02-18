@@ -30,4 +30,9 @@ export class ElectorateService {
   generateCode() {
     return Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(8, 12);
   }
+
+  delete(election: string, code: string) {
+    const document = this.afs.doc('election/' + election + '/electorate/' + code);
+    return document.delete();
+  }
 }
