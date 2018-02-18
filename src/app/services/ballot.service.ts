@@ -14,4 +14,9 @@ export class BallotService {
     return ballots.snapshotChanges();
   }
 
+  deleteBallot(election: string, ballot: string) {
+    const document = this.afs.doc('election/' + election + '/ballots/' + ballot);
+    return document.delete();
+  }
+
 }
