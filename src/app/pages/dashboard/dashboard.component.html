@@ -5,7 +5,9 @@
   <div class="ui grid">
     <div class="ui eight wide column">
       <div class="ui segment">
-        <h3 class="ui header">Ballots</h3>
+        <h3 class="ui header">
+          Ballots <a class="right floated" (click)="addBallot()"><small>New</small></a>
+        </h3>
         <div class="ui list" *ngIf="ballots">
           <div class="item" *ngFor="let ballot of ballots">
             <div class="header">{{ballot.name}}</div>
@@ -43,5 +45,27 @@
         {{ option.name }}
       </div>
     </div>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #addBallotModalTemplate>
+  <div class="header">Add Ballot</div>
+  <div class="content">
+    <div class="ui labeled input">
+      <div class="ui label">Name</div>
+      <input type="text" placeholder="Name" [(ngModel)]="newBallotName">
+    </div>
+    <div class="ui labeled input">
+      <div class="ui label">Description</div>
+      <input type="text" placeholder="Description" [(ngModel)]="newBallotDescription">
+    </div>
+    <select class="ui search dropdown" [(ngModel)]="newBallotType">
+      <option value="">Select Type</option>
+      <option value="1">Basic</option>
+      <option value="2">No Abstain</option>
+      <option value="3">Single Seat</option>
+      <option value="4">Multiple Seat</option>
+    </select>
+    <button class="ui primary button" (click)="addNewBallot()">Add</button>
   </div>
 </ng-template>
