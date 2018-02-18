@@ -30,6 +30,11 @@
     <div class="ui eight wide column">
       <div class="ui segment">
         <h3 class="ui header">Electorate Codes</h3>
+        <div class="ui list">
+          <div class="item" *ngFor="let code of electorateCodes">
+            {{code.id}}
+          </div>
+        </div>
       </div>
     </div>
     <div class="ui eight wide column">
