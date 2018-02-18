@@ -143,4 +143,8 @@ export class DashboardComponent implements OnInit {
     this.electorate.generate(this.newCodesCount, this.election.id);
   }
 
+  deleteCode(uid: string) {
+    this.electorate.delete(this.election.id, uid);
+  }
+
 }
