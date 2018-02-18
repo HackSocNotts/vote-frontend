@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.election = this.localStorage.get('election');
+    this.elector = this.localStorage.get('elector');
+    this.code = this.election + '-' + this.elector;
+    this.checkCode();
   }
 
   showInvalidCodeError(message: string) {
