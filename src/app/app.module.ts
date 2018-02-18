@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { AppRouterModule } from './app-router.module';
 import { SuiModule } from 'ng2-semantic-ui';
 import { FormsModule } from '@angular/forms';
+import { LocalStorageModule } from 'angular-2-local-storage';
 
 import { ElectionService } from './services/election.service';
 
@@ -33,7 +34,11 @@ import { CreateComponent } from './pages/create/create.component';
     AngularFireAuthModule,
     AppRouterModule,
     SuiModule,
-    FormsModule
+    FormsModule,
+    LocalStorageModule.withConfig({
+      prefix: 'ballot-app-',
+      storageType: 'localStorage'
+    })
   ],
   providers: [
     ElectionService
