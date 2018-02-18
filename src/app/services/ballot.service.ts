@@ -19,4 +19,13 @@ export class BallotService {
     return document.delete();
   }
 
+  addBallot(election: string, ballot: any) {
+    const collection = this.afs.collection('election/' + election + '/ballots');
+    return collection.add({
+      name: ballot.name,
+      description: ballot.description,
+      type: ballot.type
+    });
+  }
+
 }
