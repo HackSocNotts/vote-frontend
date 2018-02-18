@@ -22,6 +22,7 @@ import { CreateComponent } from './pages/create/create.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BallotComponent } from './pages/ballot/ballot.component';
 import {BallotService} from './services/ballot.service';
+import { AboutComponent } from './pages/about/about.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {BallotService} from './services/ballot.service';
     LogoutComponent,
     CreateComponent,
     HomeComponent,
-    BallotComponent
+    BallotComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
