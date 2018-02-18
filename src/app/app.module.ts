@@ -21,6 +21,7 @@ import { LogoutComponent } from './pages/logout/logout.component';
 import { CreateComponent } from './pages/create/create.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BallotComponent } from './pages/ballot/ballot.component';
+import {BallotService} from './services/ballot.service';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { BallotComponent } from './pages/ballot/ballot.component';
   ],
   providers: [
     ElectionService,
+    BallotService,
     AuthGuard
   ],
   bootstrap: [AppComponent]
