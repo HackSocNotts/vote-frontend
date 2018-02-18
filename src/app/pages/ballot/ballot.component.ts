@@ -15,7 +15,7 @@ export class BallotComponent implements OnInit {
   constructor(
     private electionService: ElectionService,
     private localStorage: LocalStorageService,
-    private balltService: BallotService
+    private ballotService: BallotService
   ) { }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class BallotComponent implements OnInit {
       .subscribe(data => {
         this.election = data;
       });
-    this.balltService.getBallots(election_id)
+    this.ballotService.getBallots(election_id)
       .subscribe(data => {
         const ballots: any[] = [];
         for (let i = 0; i < data.length; i++) {
