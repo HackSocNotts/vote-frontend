@@ -16,15 +16,13 @@ export class ElectionService {
    * @param {string} uid
    */
   searchForUser(uid: string) {
-    const election = this.afs.collection('election', ref => {
-      return ref.where('user', '==', uid);
-    });
+    const election = this.afs.collection('election', ref => ref.where('user', '==', uid));
+    return election.snapshotChanges();
+  }
 
-    const snapshot = election.snapshotChanges()
-      .map(arr => {
-        console.log(arr);
-        arr.map(snap => console.log(snap.payload.doc.data()));
-      });
+  getDocument(uid: string) {
+    const document = this.afs.doc('election/' + uid);
+    return document.valueChanges();
   }
 
 }
