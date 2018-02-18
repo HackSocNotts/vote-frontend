@@ -14,9 +14,18 @@ export class DashboardComponent implements OnInit {
   @ViewChild('ballotModalTemplate')
   public ballotModalTemplate: ModalTemplate<BallotModel, any, any>;
 
+  @ViewChild('addBallotModalTemplate')
+  public addBallotModalTemplate: ModalTemplate<any, any, any>;
+
   election: any;
 
   ballots: any;
+
+  newBallotName: string;
+
+  newBallotDescription: string;
+
+  newBallotType: number;
 
   constructor(
     private localStorage: LocalStorageService,
@@ -73,5 +82,21 @@ export class DashboardComponent implements OnInit {
 
   deleteBallot(uid: string) {
     this.ballotService.deleteBallot(this.election.id, uid);
+  }
+
+  addBallot() {
+    const config = new TemplateModalConfig<any, any, any>(this.addBallotModalTemplate);
+    this.modalService.open(config);
+  }
+
+  addNewBallot() {
+    const data = {
+      name: this.newBallotName,
+      description: this.newBallotDescription,
+      type: this.newBallotType
+    };
+    this.ballotService.addBallot(this.election.id, data);
+    const config = new TemplateModalConfig<any, any, any>(this.addBallotModalTemplate);
+    this.modalService.close(config);
   }
 }
