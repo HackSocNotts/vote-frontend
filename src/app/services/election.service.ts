@@ -49,4 +49,14 @@ export class ElectionService {
     });
   }
 
+  /**
+   * Delete an election
+   * @param {string} uid
+   * @return {Promise<void>}
+   */
+  deleteElection(uid: string) {
+    const document = this.afs.doc('election/' + uid);
+    return document.delete();
+  }
+
 }
