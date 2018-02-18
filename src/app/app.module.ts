@@ -36,7 +36,7 @@ import { CreateComponent } from './pages/create/create.component';
     SuiModule,
     FormsModule,
     LocalStorageModule.withConfig({
-      prefix: 'ballot-app-',
+      prefix: 'ballot-app',
       storageType: 'localStorage'
     })
   ],
