@@ -19,6 +19,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { CreateComponent } from './pages/create/create.component';
+import { HomeComponent } from './pages/home/home.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { CreateComponent } from './pages/create/create.component';
     NavbarComponent,
     LoginComponent,
     LogoutComponent,
-    CreateComponent
+    CreateComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
