@@ -8,6 +8,8 @@ import { AppRouterModule } from './app-router.module';
 import { SuiModule } from 'ng2-semantic-ui';
 import { FormsModule } from '@angular/forms';
 
+import { ElectionService } from './services/election.service';
+
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -33,7 +35,9 @@ import { CreateComponent } from './pages/create/create.component';
     SuiModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    ElectionService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
