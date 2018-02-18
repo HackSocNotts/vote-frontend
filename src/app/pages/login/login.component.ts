@@ -49,8 +49,7 @@ export class LoginComponent implements OnInit {
       } else {
         const electionID = data[0].payload.doc.id;
         this.localStorage.add('election', electionID);
-        // Save election id to local data
-        // this.router.navigateByUrl('dashboard');
+        this.router.navigateByUrl('dashboard');
       }
     });
   }
