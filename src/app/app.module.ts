@@ -20,6 +20,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { CreateComponent } from './pages/create/create.component';
 import { HomeComponent } from './pages/home/home.component';
+import { BallotComponent } from './pages/ballot/ballot.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { HomeComponent } from './pages/home/home.component';
     LoginComponent,
     LogoutComponent,
     CreateComponent,
-    HomeComponent
+    HomeComponent,
+    BallotComponent
   ],
   imports: [
     BrowserModule,
