@@ -6,6 +6,12 @@ import { BallotOption } from './ballot-option';
  */
 export interface BallotModel {
   /**
+   * Id of ballot
+   * @var string
+   */
+  id: string;
+
+  /**
    * Name of the ballot
    * @var string
    */

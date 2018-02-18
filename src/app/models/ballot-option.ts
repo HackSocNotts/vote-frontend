@@ -4,9 +4,9 @@
 export interface BallotOption {
   /**
    * ID of the option
-   * @var number
+   * @var string
    */
-  id: number;
+  id: string;
 
   /**
    * The name of the option
