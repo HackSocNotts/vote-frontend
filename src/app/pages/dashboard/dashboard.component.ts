@@ -241,8 +241,25 @@ export class DashboardComponent implements OnInit {
     this.candidatesService.addCandidate(this.election.id, {name: this.newCandidateName, manifesto: this.newCandidateManifesto});
   }
 
+  editCandidate(uid: string, name: string) {
+    const candidate = {
+      name: name,
+      manifesto: this.newCandidateManifesto
+    };
+    this.newCandidateManifesto = '';
+    this.candidatesService.editCandidate(this.election.id, uid, candidate);
+  }
+
   deleteCandidate(uid: string) {
     this.candidatesService.deleteCandidate(this.election.id, uid);
+  }
+
+  viewCandidate(candidate: any) {
+    this.newCandidateManifesto = candidate.manifesto;
+    const config = new TemplateModalConfig<any, any, any>(this.viewCandidateModal);
+    config.context = candidate;
+    this.modalService
+      .open(config);
   }
 
 }
