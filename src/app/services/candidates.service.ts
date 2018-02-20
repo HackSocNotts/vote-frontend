@@ -18,6 +18,11 @@ export class CandidatesService {
     return document.delete();
   }
 
+  editCandidate(election: string, uid: string, candidate: any) {
+    const document = this.afs.doc('election/' + election + '/candidates/' + uid);
+    return document.update(candidate);
+  }
+
   addCandidate(election: string, candidate: any) {
     const collection = this.afs.collection('election/' + election + '/candidates');
     return collection.add({
