@@ -225,6 +225,8 @@ export class DashboardComponent implements OnInit {
   }
 
   addCandidate() {
+    this.newCandidateName = '';
+    this.newCandidateManifesto = '';
     const config = new TemplateModalConfig<any, any, any>(this.addCandidateModal);
     this.modalService.open(config);
   }
