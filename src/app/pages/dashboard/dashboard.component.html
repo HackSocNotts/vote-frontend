@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="ui eight wide column">
-      <button class="large fluid red animated ui button" (click)="deleteAccount()">
+      <button class="large fluid red animated ui button" [swal]="deleteSwal">
         <div class="visible content">
           Delete
         </div>
@@ -99,3 +99,16 @@
     <button class="ui primary button" (click)="generateCodes(); modal.deny()">Generate</button>
   </div>
 </ng-template>
+
+<swal
+  #deleteSwal
+  title="Delete {{ election.name }}?"
+  text="This cannot be undone"
+  type="warning"
+  confirmButtonText="Yes, Delete."
+  confrimButtonClass="ui negative button"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  (confirm)="deleteAccount()"
+>
+</swal>
