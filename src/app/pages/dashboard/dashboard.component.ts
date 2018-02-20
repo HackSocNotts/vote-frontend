@@ -13,27 +13,65 @@ import {ElectorateService} from '../../services/electorate.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  /**
+   * Modal for viewing information about a Ballot
+   */
   @ViewChild('ballotModalTemplate')
   public ballotModalTemplate: ModalTemplate<BallotModel, any, any>;
 
+  /**
+   * Modal for adding a ballot
+   */
   @ViewChild('addBallotModalTemplate')
   public addBallotModalTemplate: ModalTemplate<any, any, any>;
 
+  /**
+   * Modal for adding codes
+   */
   @ViewChild('addCodesModal')
   public addCodesModal: ModalTemplate<any, any, any>;
 
+  /**
+   * Object containing election information
+   */
   election: any;
 
+  /**
+   * Object containing information about ballots
+   */
   ballots: any;
 
+  /**
+   * Object container array of electorate details
+   */
   electorateCodes: any;
 
+  /**
+   * Name of new ballot.
+   *
+   * Linked ot NgModel for name in add ballot modal
+   */
   newBallotName: string;
 
+  /**
+   * Description of new ballot.
+   *
+   * Linked ot NgModel for description in add ballot modal
+   */
   newBallotDescription: string;
 
+  /**
+   * Type of new ballot.
+   *
+   * Linked ot NgModel for description in add ballot modal
+   */
   newBallotType: number;
 
+  /**
+   * Number of codes for electorate.
+   *
+   * Linked ot NgModel for codes in add codes modal
+   */
   newCodesCount: number;
 
   constructor(
