@@ -26,27 +26,6 @@ export class DashboardComponent implements OnInit {
   public addBallotModalTemplate: ModalTemplate<any, any, any>;
 
   /**
-   * Modal for adding codes
-   */
-  @ViewChild('addCodesModal')
-  public addCodesModal: ModalTemplate<any, any, any>;
-
-  /**
-   * Object containing election information
-   */
-  election: any;
-
-  /**
-   * Object containing information about ballots
-   */
-  ballots: any;
-
-  /**
-   * Object container array of electorate details
-   */
-  electorateCodes: any;
-
-  /**
    * Name of new ballot.
    *
    * Linked ot NgModel for name in add ballot modal
@@ -68,11 +47,52 @@ export class DashboardComponent implements OnInit {
   newBallotType: number;
 
   /**
+   * Modal for adding codes
+   */
+  @ViewChild('addCodesModal')
+  public addCodesModal: ModalTemplate<any, any, any>;
+
+  /**
    * Number of codes for electorate.
    *
    * Linked ot NgModel for codes in add codes modal
    */
   newCodesCount: number;
+
+  /**
+   * Modal for adding a ballot
+   */
+  @ViewChild('addCandidateModal')
+  public addCandidateModal: ModalTemplate<any, any, any>;
+
+  /**
+   * Name of new candidate
+   *
+   * Linked ot NgModel for candidate name in add new candidate modal
+   */
+  newCandidateName: string;
+
+  /**
+   * Manifesto of new candidate
+   *
+   * Linked ot NgModel for candidate manifesto in add new candidate modal
+   */
+  newCandidateManifesto: string;
+
+  /**
+   * Object containing election information
+   */
+  election: any;
+
+  /**
+   * Object containing information about ballots
+   */
+  ballots: any;
+
+  /**
+   * Object container array of electorate details
+   */
+  electorateCodes: any;
 
   constructor(
     private localStorage: LocalStorageService,
@@ -183,6 +203,15 @@ export class DashboardComponent implements OnInit {
 
   deleteCode(uid: string) {
     this.electorate.delete(this.election.id, uid);
+  }
+
+  addCandidate() {
+    const config = new TemplateModalConfig<any, any, any>(this.addCandidateModal);
+    this.modalService.open(config);
+  }
+
+  addNewCandidate() {
+    console.log([this.newCandidateName, this.newCandidateManifesto]);
   }
 
 }

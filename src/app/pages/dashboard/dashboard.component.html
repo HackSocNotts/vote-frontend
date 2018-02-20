@@ -24,7 +24,7 @@
     </div>
     <div class="ui eight wide column">
       <div class="ui segment">
-        <h3 class="ui header">Candidates</h3>
+        <h3 class="ui header">Candidates <a class="right floated" (click)="addCandidate()"><small>New</small></a></h3>
       </div>
     </div>
     <div class="ui eight wide column">
@@ -97,6 +97,21 @@
       <input type="number" [(ngModel)]="newCodesCount">
     </div>
     <button class="ui primary button" (click)="generateCodes(); modal.deny()">Generate</button>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #addCandidateModal>
+  <div class="header">Add Candidate</div>
+  <div class="content">
+    <div class="ui labeled input">
+      <div class="ui label">Name</div>
+      <input type="text" placeholder="Name" [(ngModel)]="newCandidateName">
+    </div>
+    <div class="ui labeled input">
+      <div class="ui label">Manifesto</div>
+      <input type="text" placeholder="Description" [(ngModel)]="newCandidateManifesto">
+    </div>
+    <button class="ui primary button" (click)="addNewCandidate(); modal.deny()">Add</button>
   </div>
 </ng-template>
 
