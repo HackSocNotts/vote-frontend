@@ -3,11 +3,18 @@
   <h1 class="ui teal header">Dashboard<span *ngIf="election"> - {{election.name}}</span></h1>
   <div class="ui hidden divider"></div>
   <div class="ui grid">
-    <div class="ui eight wide column">
-      <div class="ui segment">
-        <h3 class="ui header">
-          Ballots <a class="right floated" (click)="addBallot()"><small>New</small></a>
+    <div class="ui sixteen wide column">
+      <div class="ui clearing segment">
+        <span class="ui right floated header">
+          <button class="ui mini basic circular button" (click)="addBallot()">
+            add
+          </button>
+        </span>
+        <h3 class="ui left floated header">
+          Ballots
         </h3>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
         <div class="ui list" *ngIf="ballots">
           <div class="item" *ngFor="let ballot of ballots">
             <div class="header">{{ballot.name}}</div>
@@ -22,14 +29,32 @@
         </div>
       </div>
     </div>
-    <div class="ui eight wide column">
-      <div class="ui segment">
-        <h3 class="ui header">Candidates <a class="right floated" (click)="addCandidate()"><small>New</small></a></h3>
+    <div class="ui sixteen wide column">
+      <div class="ui clearing segment">
+        <span class="ui right floated header">
+          <button class="ui mini basic circular button" (click)="addCandidate()">
+            add
+          </button>
+        </span>
+        <h3 class="ui left floated header">
+          Candidates
+        </h3>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
       </div>
     </div>
-    <div class="ui eight wide column">
-      <div class="ui segment">
-        <h3 class="ui header">Electorate Codes <a class="right floated" (click)="showGenerateCodes()"><small>Generate</small></a></h3>
+    <div class="ui sixteen wide column">
+      <div class="ui clearing segment">
+        <span class="ui right floated header">
+          <button class="ui mini basic circular button" (click)="showGenerateCodes()">
+            generate
+          </button>
+        </span>
+        <h3 class="ui left floated header">
+          Electorate Codes
+        </h3>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
         <div class="ui list">
           <div class="item" *ngFor="let code of electorateCodes">
             {{code.id}}
@@ -40,7 +65,7 @@
         </div>
       </div>
     </div>
-    <div class="ui eight wide column">
+    <div class="ui sixteen wide column">
       <button class="large fluid red animated ui button" [swal]="deleteSwal">
         <div class="visible content">
           Delete
@@ -103,15 +128,18 @@
 <ng-template let-context let-modal="modal" #addCandidateModal>
   <div class="header">Add Candidate</div>
   <div class="content">
-    <div class="ui labeled input">
-      <div class="ui label">Name</div>
-      <input type="text" placeholder="Name" [(ngModel)]="newCandidateName">
+    <div class="ui form">
+      <div class="field">
+        <label>Name</label>
+        <input type="text" [(ngModel)]="newCandidateName">
+      </div>
+      <div class="field">
+        <label>Manifesto</label>
+        <textarea  [(ngModel)]="newCandidateManifesto"></textarea>
+      </div>
     </div>
-    <div class="ui labeled input">
-      <div class="ui label">Manifesto</div>
-      <input type="text" placeholder="Description" [(ngModel)]="newCandidateManifesto">
-    </div>
-    <button class="ui primary button" (click)="addNewCandidate(); modal.deny()">Add</button>
+    <div class="ui hidden divider"></div>
+    <button class="ui primary fluid button" (click)="addNewCandidate(); modal.deny()">Add</button>
   </div>
 </ng-template>
 
