@@ -62,10 +62,16 @@ export class DashboardComponent implements OnInit {
   newCodesCount: number;
 
   /**
-   * Modal for adding a ballot
+   * Modal for adding a candidate
    */
   @ViewChild('addCandidateModal')
   public addCandidateModal: ModalTemplate<any, any, any>;
+
+  /**
+   * Modal for viewing a candidate
+   */
+  @ViewChild('viewCandidateModal')
+  public viewCandidateModal: ModalTemplate<any, any, any>;
 
   /**
    * Name of new candidate
