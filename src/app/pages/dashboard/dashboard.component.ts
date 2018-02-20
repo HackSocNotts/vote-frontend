@@ -233,4 +233,8 @@ export class DashboardComponent implements OnInit {
     this.candidatesService.addCandidate(this.election.id, {name: this.newCandidateName, manifesto: this.newCandidateManifesto});
   }
 
+  deleteCandidate(uid: string) {
+    this.candidatesService.deleteCandidate(this.election.id, uid);
+  }
+
 }
