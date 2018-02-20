@@ -25,6 +25,7 @@ import {BallotService} from './services/ballot.service';
 import { AboutComponent } from './pages/about/about.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import {ElectorateService} from './services/electorate.service';
+import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
 
 
 @NgModule({
@@ -50,6 +51,11 @@ import {ElectorateService} from './services/electorate.service';
     LocalStorageModule.withConfig({
       prefix: 'ballot-app',
       storageType: 'localStorage'
+    }),
+    SweetAlert2Module.forRoot({
+      buttonsStyling: false,
+      confirmButtonClass: 'ui primary button',
+      cancelButtonClass: 'ui button'
     })
   ],
   providers: [
