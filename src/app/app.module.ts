@@ -26,6 +26,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import {ElectorateService} from './services/electorate.service';
 import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
+import {CandidatesService} from './services/candidates.service';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
     ElectionService,
     BallotService,
     AuthGuard,
-    ElectorateService
+    ElectorateService,
+    CandidatesService
   ],
   bootstrap: [AppComponent]
 })
