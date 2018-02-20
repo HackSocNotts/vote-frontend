@@ -6,6 +6,8 @@ import {SuiModalService, TemplateModalConfig, ModalTemplate} from 'ng2-semantic-
 import {BallotModel} from '../../models/ballot-model';
 import {Router} from '@angular/router';
 import {ElectorateService} from '../../services/electorate.service';
+import {CandidatesService} from '../../services/candidates.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-dashboard',
@@ -94,13 +96,16 @@ export class DashboardComponent implements OnInit {
    */
   electorateCodes: any;
 
+  candidates: Observable<any[]>;
+
   constructor(
     private localStorage: LocalStorageService,
     private electionService: ElectionService,
     private ballotService: BallotService,
     public modalService: SuiModalService,
     private router: Router,
-    private electorate: ElectorateService
+    private electorate: ElectorateService,
+    private candidatesService: CandidatesService
   ) { }
 
   ngOnInit() {
@@ -111,6 +116,7 @@ export class DashboardComponent implements OnInit {
         this.election.id = election_id;
         this.retrieveBallots();
         this.retrieveCodes();
+        this.retrieveCandidates();
       });
   }
 
@@ -126,7 +132,6 @@ export class DashboardComponent implements OnInit {
          };
         }
         this.electorateCodes = codes;
-        console.log(this.electorateCodes);
       });
   }
 
@@ -146,8 +151,22 @@ export class DashboardComponent implements OnInit {
           };
         }
         this.ballots = ballots;
-        console.log(this.ballots);
       });
+  }
+
+  private retrieveCandidates() {
+    const election_id = this.election.id;
+    this.candidates = this.candidatesService.getCandidates(election_id).map(candidates => {
+      const formatted = [];
+      for (let i = 0; i < candidates.length; i++) {
+        formatted[i] = {
+          id: candidates[i].payload.doc.id,
+          name: candidates[i].payload.doc.data().name,
+          manifesto: candidates[i].payload.doc.data().manifesto
+        };
+      }
+      return formatted;
+    });
   }
 
   viewBallot(uid: string) {
@@ -211,7 +230,7 @@ export class DashboardComponent implements OnInit {
   }
 
   addNewCandidate() {
-    console.log([this.newCandidateName, this.newCandidateManifesto]);
+    this.candidatesService.addCandidate(this.election.id, {name: this.newCandidateName, manifesto: this.newCandidateManifesto});
   }
 
 }
