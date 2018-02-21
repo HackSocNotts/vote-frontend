@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {ElectorateService} from '../../services/electorate.service';
 import {CandidatesService} from '../../services/candidates.service';
 import {Observable} from 'rxjs/Observable';
+import {CandidateModel} from '../../models/candidate-model';
 
 @Component({
   selector: 'app-dashboard',
@@ -93,16 +94,19 @@ export class DashboardComponent implements OnInit {
   election: any;
 
   /**
-   * Object containing information about ballots
+   * rxjs observable with ballots
    */
-  ballots: any;
+  ballots: Observable<BallotModel[]>;
 
   /**
    * Object container array of electorate details
    */
   electorateCodes: any;
 
-  candidates: Observable<any[]>;
+  /**
+   * rxjs observable with candidates
+   */
+  candidates: Observable<CandidateModel[]>;
 
   constructor(
     private localStorage: LocalStorageService,
@@ -142,27 +146,25 @@ export class DashboardComponent implements OnInit {
   }
 
   private retrieveBallots() {
-    const election_id = this.election.id;
-    this.ballotService.getBallots(election_id)
-      .subscribe(data => {
-        const ballots = [];
-        for (let i = 0; i < data.length; i++) {
-          const ballot = data[i];
-          ballots[i] = {
-            id: ballot.payload.doc.id,
-            name: ballot.payload.doc.data().name,
-            description: ballot.payload.doc.data().description,
-            type: ballot.payload.doc.data().type,
-            options: ballot.payload.doc.data().options
+    this.ballots = this.ballotService.getBallots(this.election.id)
+      .map(ballots => {
+        const formatted = [];
+        for (let i = 0; i < ballots.length; i++) {
+          formatted[i] = {
+            id: ballots[i].payload.doc.id,
+            name: ballots[i].payload.doc.data().name,
+            description: ballots[i].payload.doc.data().description,
+            type: ballots[i].payload.doc.data().type,
+            candidates: ballots[i].payload.doc.data().options,
           };
         }
-        this.ballots = ballots;
+        return formatted;
       });
   }
 
   private retrieveCandidates() {
-    const election_id = this.election.id;
-    this.candidates = this.candidatesService.getCandidates(election_id).map(candidates => {
+    this.candidates = this.candidatesService.getCandidates(this.election.id)
+      .map(candidates => {
       const formatted = [];
       for (let i = 0; i < candidates.length; i++) {
         formatted[i] = {
@@ -175,24 +177,22 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  viewBallot(uid: string) {
-    const ballot = this.ballots.filter(data => data.id === uid)[0];
-    console.log(ballot);
+  viewBallot(ballot: BallotModel) {
     const config = new TemplateModalConfig<BallotModel, any, any>(this.ballotModalTemplate);
     config.context = {
       id: ballot.id,
       name: ballot.name,
       description: ballot.description,
       type: ballot.type,
-      options: ballot.options
+      candidates: ballot.candidates
     };
 
     this.modalService
       .open(config);
   }
 
-  deleteBallot(uid: string) {
-    this.ballotService.deleteBallot(this.election.id, uid);
+  deleteBallot(ballot: BallotModel) {
+    this.ballotService.deleteBallot(this.election.id, ballot.id);
   }
 
   addBallot() {
