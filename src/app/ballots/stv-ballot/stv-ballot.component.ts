@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {BallotModel} from '../../models/ballot-model';
 import {CandidatesService} from '../../services/candidates.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {Observable} from 'rxjs/Observable';
 import {CandidateModel} from '../../models/candidate-model';
+import {ModalTemplate, SuiModalService, TemplateModalConfig} from 'ng2-semantic-ui';
 
 @Component({
   selector: 'app-stv-ballot',
@@ -12,15 +13,34 @@ import {CandidateModel} from '../../models/candidate-model';
 })
 export class StvBallotComponent implements OnInit {
 
+  /**
+   * Election ID
+   * @var string
+   */
   election: string;
 
+  /**
+   * The ballot data
+   * @var BallotModel
+   */
   @Input() ballot: BallotModel;
 
+  /**
+   * Observable with all candidates
+   * @var Observable<CandidateModel[]>
+   */
   candidates$: Observable<CandidateModel[]>;
+
+  /**
+   * Modal for viewing a candidate
+   */
+  @ViewChild('viewCandidateModal')
+  public viewCandidateModal: ModalTemplate<any, any, any>;
 
   constructor(
     private candidateService: CandidatesService,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    public modalService: SuiModalService,
   ) { }
 
   ngOnInit() {
@@ -29,7 +49,7 @@ export class StvBallotComponent implements OnInit {
     this.getCandidates();
   }
 
-  getCandidates() {
+  private getCandidates() {
     this.candidates$ = this.candidateService.getCandidates(this.election)
       .map(data => {
         const formatted = [];
@@ -43,6 +63,13 @@ export class StvBallotComponent implements OnInit {
         }
         return formatted;
       });
+  }
+
+  viewCandidate(candidate: any) {
+    const config = new TemplateModalConfig<any, any, any>(this.viewCandidateModal);
+    config.context = candidate;
+    this.modalService
+      .open(config);
   }
 
 }

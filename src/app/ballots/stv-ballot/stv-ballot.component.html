@@ -4,5 +4,20 @@
   <h3>
     Please rank your preferences from most preferred to least preferred. Note that there are multiple seats for this position.
   </h3>
+  <div *ngIf="candidates$" class="ui list">
+    <div *ngFor="let candidate of candidates$ | async" class="item">
+      {{candidate.name}}
+      <a class="icon" (click)="viewCandidate(candidate)">
+        <i class="info icon"></i>
+      </a>
+    </div>
+  </div>
 </div>
 <div class="ui hidden divider"></div>
+
+<ng-template let-context let-modal="modal" #viewCandidateModal>
+  <div class="header">{{context.name}}</div>
+  <div class="content">
+      {{context.manifesto}}
+  </div>
+</ng-template>
