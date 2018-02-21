@@ -28,7 +28,7 @@ export class ElectionService {
    */
   getDocument(uid: string) {
     const document = this.afs.doc('election/' + uid);
-    return document.snapshotChanges();
+    return document.valueChanges();
   }
 
   /**

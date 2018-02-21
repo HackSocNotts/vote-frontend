@@ -3,7 +3,6 @@ import {ElectionService} from '../../services/election.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {BallotService} from '../../services/ballot.service';
 import {Observable} from 'rxjs/Observable';
-import { tap, map } from 'rxjs/operators';
 import {BallotModel} from '../../models/ballot-model';
 
 @Component({
@@ -13,7 +12,7 @@ import {BallotModel} from '../../models/ballot-model';
 })
 export class BallotComponent implements OnInit {
 
-  election: Observable<any>;
+  election: Observable<{name: string, description: string}>;
 
   ballots: Observable<BallotModel[]>;
 
@@ -30,24 +29,13 @@ export class BallotComponent implements OnInit {
 
   private retrieveElection() {
     const election_id: string = this.localStorage.get('election');
-    console.log('retrieve election', election_id);
     this.election = this.electionService.getDocument(election_id)
       .map(data => {
-        console.log(data);
         return {
-          name: data.payload.data().name,
-          description: data.payload.data().description
+          name: data.name,
+          description: data.description
         };
       });
-    // this.election = document.pipe(
-    //   tap(data => console.log(data.payload.data())),
-    //   map(data => {
-    //     return {
-    //       name: data.payload.data().name,
-    //       description: data.payload.data().description
-    //     };
-    //   })
-    // );
   }
 
   private retrieveBallots() {

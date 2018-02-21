@@ -1,9 +1,9 @@
-<div class="ui container" *ngIf="election | async; else loading">
+<div class="ui container" *ngIf="election | async as $election; else loading">
   <div class="ui hidden divider"></div>
   <div class="ui horizontal divider">
-    <h1>{{election.name}}</h1>
+    <h1>{{$election.name}}</h1>
   </div>
-  <p>{{election.description}}</p>
+  <p>{{$election.description}}</p>
   <div class="ui hidden divider"></div>
   <div *ngIf="ballots">
     <div *ngFor="let ballot of ballots | async">
