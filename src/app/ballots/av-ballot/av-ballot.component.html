@@ -1,15 +1,24 @@
 <div class="ui segment">
+  <div *ngIf="error">
+    <div class="ui negative message">
+      <div class="header">
+        {{error}}
+      </div>
+    </div>
+    <div class="ui hidden divider"></div>
+  </div>
   <h1>{{ballot.name}}</h1>
   <p class="ui blue">{{ballot.description}}</p>
   <h3>
     Please rank your preferences from most preferred to least preferred. Note that only one candidate can get the seat.
+    <br /><small>Enter 1 by your first choice. Highest number by your last choice.</small>
   </h3>
   <div *ngIf="candidates$" class="ui list">
     <div *ngFor="let candidate of candidates$ | async" class="item">
       <div class="ui form">
         <div class="fields">
           <div class="one wide mini field">
-            <input type="text">
+            <input type="text" *ngIf="elector$ | async as elector" [value]="showVal(elector.votes[ballot.id].votes[candidate.id])" (change)="updateVote(candidate, elector, $event.target['value'])">
           </div>
           <div class="15 wide candidate-text">
             {{candidate.name}}
