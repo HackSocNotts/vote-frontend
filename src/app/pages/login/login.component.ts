@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { ElectionService } from '../../services/election.service';
@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
     public afAuth: AngularFireAuth,
     private election: ElectionService,
     private router: Router,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private zone: NgZone
   ) { }
 
   ngOnInit() {
@@ -44,13 +45,15 @@ export class LoginComponent implements OnInit {
   checkForElection(user: string) {
     const result = this.election.searchForUser(user);
     result.subscribe(data => {
-      if (data.length === 0) {
-        this.router.navigateByUrl('create');
-      } else {
-        const electionID = data[0].payload.doc.id;
-        this.localStorage.set('election', electionID);
-        this.router.navigateByUrl('dashboard');
-      }
+      this.zone.run(() => {
+        if (data.length === 0) {
+          this.router.navigateByUrl('create');
+        } else {
+          const electionID = data[0].payload.doc.id;
+          this.localStorage.set('election', electionID);
+          this.router.navigateByUrl('dashboard');
+        }
+      });
     });
   }
 
