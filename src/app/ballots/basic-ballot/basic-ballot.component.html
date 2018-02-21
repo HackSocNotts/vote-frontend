@@ -1,3 +1,36 @@
-<p>
-  basic-ballot works!
-</p>
+<div class="ui segment">
+  <h1>{{ballot.name}}</h1>
+  <p class="ui blue">{{ballot.description}}</p>
+  <h3>
+    You can vote in <strong>favor</strong>, <strong>against</strong>, or <strong>abstain</strong>.
+  </h3>
+  <div class="three ui buttons">
+    <div class="animated green ui button">
+      <div class="visible content">
+        In Favor
+      </div>
+      <div class="hidden content">
+        You want this to pass.
+      </div>
+    </div>
+    <div class="or"></div>
+    <div class="animated yellow ui button">
+      <div class="visible content">
+        Abstain
+      </div>
+      <div class="hidden content">
+        You don't mind either way.
+      </div>
+    </div>
+    <div class="or"></div>
+    <div class="animated red ui button">
+      <div class="visible content">
+        Against
+      </div>
+      <div class="hidden content">
+        You don't want this to pass.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui hidden divider"></div>

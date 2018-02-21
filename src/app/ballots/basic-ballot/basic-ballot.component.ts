@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {BallotModel} from '../../models/ballot-model';
 
 @Component({
   selector: 'app-basic-ballot',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./basic-ballot.component.css']
 })
 export class BasicBallotComponent implements OnInit {
+
+  @Input() ballot: BallotModel;
 
   constructor() { }
 

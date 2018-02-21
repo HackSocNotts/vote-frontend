@@ -1,3 +1,27 @@
-<p>
-  no-abstain-ballot works!
-</p>
+<div class="ui segment">
+  <h1>{{ballot.name}}</h1>
+  <p class="ui blue">{{ballot.description}}</p>
+  <h3>
+    You can vote in <strong>favor</strong>,or <strong>against</strong>. Abstaining is not an option.
+  </h3>
+  <div class="two ui buttons">
+    <div class="animated green ui button">
+      <div class="visible content">
+        In Favor
+      </div>
+      <div class="hidden content">
+        You want this to pass.
+      </div>
+    </div>
+    <div class="or"></div>
+    <div class="animated red ui button">
+      <div class="visible content">
+        Against
+      </div>
+      <div class="hidden content">
+        You don't want this to pass.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui hidden divider"></div>

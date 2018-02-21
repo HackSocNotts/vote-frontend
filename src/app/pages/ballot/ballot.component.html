@@ -7,104 +7,10 @@
   <div class="ui hidden divider"></div>
   <div *ngIf="election.ballots">
     <div *ngFor="let ballot of election.ballots">
-      <div class="ui segment">
-        <!-- START Name of Ballot Item -->
-        <h1>{{ballot.name}}</h1>
-        <!--END Name-->
-
-        <!-- START Description of ballot -->
-        <p class="ui blue">{{ballot.description}}</p>
-        <!-- END Description-->
-
-        <!-- START Explanation of Voting -->
-
-        <!-- Basic -->
-        <h3 *ngIf="ballot.type == 1">
-          You can vote in <strong>favor</strong>, <strong>against</strong>, or <strong>abstain</strong>.
-        </h3>
-
-        <!-- No Abstain -->
-        <h3 *ngIf="ballot.type == 2">
-          You can vote in <strong>favor</strong>,or <strong>against</strong>. Abstaining is not an option.
-        </h3>
-
-        <!--Single Seat-->
-        <h3 *ngIf="ballot.type == 3">
-          Please rank your preferences from most preferred to least preferred. Note that only one candidate can get the seat.
-        </h3>
-
-        <!--Multi Seat-->
-        <h3 *ngIf="ballot.type == 4">
-          Please rank your preferences from most preferred to least preferred. Note that there are multiple seats for this position.
-        </h3>
-
-        <!--END Explanation-->
-
-        <!-- START OPTIONS -->
-
-        <!-- START BasicBallot -->
-        <div *ngIf="ballot.type == 1" class="three ui buttons">
-          <div class="animated green ui button">
-            <div class="visible content">
-              In Favor
-            </div>
-            <div class="hidden content">
-              You want this to pass.
-            </div>
-          </div>
-          <div class="or"></div>
-          <div class="animated yellow ui button">
-            <div class="visible content">
-              Abstain
-            </div>
-            <div class="hidden content">
-              You don't mind either way.
-            </div>
-          </div>
-          <div class="or"></div>
-          <div class="animated red ui button">
-            <div class="visible content">
-              Against
-            </div>
-            <div class="hidden content">
-              You don't want this to pass.
-            </div>
-          </div>
-        </div>
-        <!-- END Basic Ballot -->
-
-        <!-- START No Abstain Ballot -->
-        <div *ngIf="ballot.type == 2" class="two ui buttons">
-          <div class="animated green ui button">
-            <div class="visible content">
-              In Favor
-            </div>
-            <div class="hidden content">
-              You want this to pass.
-            </div>
-          </div>
-          <div class="or"></div>
-          <div class="animated red ui button">
-            <div class="visible content">
-              Against
-            </div>
-            <div class="hidden content">
-              You don't want this to pass.
-            </div>
-          </div>
-        </div>
-        <!-- END no Abstain Ballot-->
-
-        <!-- START Single Seat-->
-        <div *ngIf="ballot.type == 3">
-          <div *ngFor="let option of ballot.options">
-
-          </div>
-        </div>
-
-
-      </div>
-      <div class="fluid ui hidden header"></div>
+      <app-basic-ballot *ngIf="ballot.type == 1" [ballot]="ballot"></app-basic-ballot>
+      <app-no-abstain-ballot *ngIf="ballot.type == 2" [ballot]="ballot"></app-no-abstain-ballot>
+      <app-av-ballot *ngIf="ballot.type == 3" [ballot]="ballot"></app-av-ballot>
+      <app-stv-ballot *ngIf="ballot.type == 4" [ballot]="ballot"></app-stv-ballot>
     </div>
   </div>
 </div>

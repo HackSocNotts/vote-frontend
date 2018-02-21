@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {BallotModel} from '../../models/ballot-model';
 
 @Component({
   selector: 'app-stv-ballot',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stv-ballot.component.css']
 })
 export class StvBallotComponent implements OnInit {
+
+  @Input() ballot: BallotModel;
 
   constructor() { }
 
