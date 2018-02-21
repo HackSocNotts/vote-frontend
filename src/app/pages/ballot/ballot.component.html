@@ -1,12 +1,12 @@
-<div class="ui container">
+<div class="ui container" *ngIf="election | async; else loading">
   <div class="ui hidden divider"></div>
   <div class="ui horizontal divider">
     <h1>{{election.name}}</h1>
   </div>
   <p>{{election.description}}</p>
   <div class="ui hidden divider"></div>
-  <div *ngIf="election.ballots">
-    <div *ngFor="let ballot of election.ballots">
+  <div *ngIf="ballots">
+    <div *ngFor="let ballot of ballots | async">
       <app-basic-ballot *ngIf="ballot.type == 1" [ballot]="ballot"></app-basic-ballot>
       <app-no-abstain-ballot *ngIf="ballot.type == 2" [ballot]="ballot"></app-no-abstain-ballot>
       <app-av-ballot *ngIf="ballot.type == 3" [ballot]="ballot"></app-av-ballot>
