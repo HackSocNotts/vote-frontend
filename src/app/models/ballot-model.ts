@@ -1,5 +1,5 @@
 import { BallotType } from './ballot-type.enum';
-import { BallotOption } from './ballot-option';
+import {CandidateModel} from './candidate-model';
 
 /**
  * BallotInterface is used for each ballot a user may be presented with.
@@ -27,12 +27,12 @@ export interface BallotModel {
    * Type of ballot being used. See BallotType enum for details of types
    * @var BallotType
    */
-  type: BallotType | string;
+  type: BallotType | any;
 
   /**
-   * The options for the ballot
+   * The candidates for the ballot
    * @var BallotOption[] Array of BallotOption interfaces
    * @var null used when the type is Basic
    */
-  options: BallotOption[] | null | any;
+  candidates: CandidateModel[] | null | any;
 }

@@ -1,7 +1,7 @@
 /**
  * The options for a seat or multi seat ballot
  */
-export interface BallotOption {
+export interface CandidateModel {
   /**
    * ID of the option
    * @var string
@@ -15,8 +15,8 @@ export interface BallotOption {
   name: string;
 
   /**
-   * A description of the option
+   * A manifesto of the option
    * @var string
    */
-  description: string;
+  manifesto: string;
 }

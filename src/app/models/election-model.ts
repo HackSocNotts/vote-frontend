@@ -1,5 +1,5 @@
 import {BallotModel} from './ballot-model';
-import {BallotOption} from './ballot-option';
+import {CandidateModel} from './candidate-model';
 
 export interface ElectionModel {
   uid: string;
@@ -7,6 +7,6 @@ export interface ElectionModel {
   description: string;
   user: string;
   ballots: BallotModel[];
-  candidate: BallotOption[];
+  candidate: CandidateModel[];
   electorate: any[];
 }
