@@ -5,6 +5,8 @@ import {LocalStorageService} from 'angular-2-local-storage';
 import {Observable} from 'rxjs/Observable';
 import {CandidateModel} from '../../models/candidate-model';
 import {ModalTemplate, SuiModalService, TemplateModalConfig} from 'ng2-semantic-ui';
+import {ElectorModel} from '../../models/elector-model';
+import {ElectorateService} from '../../services/electorate.service';
 
 @Component({
   selector: 'app-stv-ballot',
@@ -18,6 +20,18 @@ export class StvBallotComponent implements OnInit {
    * @var string
    */
   election: string;
+
+  /**
+   * Electorate ID
+   * @var string
+   */
+  elector: string;
+
+  /**
+   * rxjs Observable with Elector Data
+   * @var Observable<ElectorModel>
+   */
+  elector$: Observable<ElectorModel>;
 
   /**
    * The ballot data
@@ -40,7 +54,8 @@ export class StvBallotComponent implements OnInit {
   constructor(
     private candidateService: CandidatesService,
     private localStorage: LocalStorageService,
-    public modalService: SuiModalService,
+    private electorService: ElectorateService,
+    public modalService: SuiModalService
   ) { }
 
   ngOnInit() {
@@ -62,6 +77,18 @@ export class StvBallotComponent implements OnInit {
           });
         }
         return formatted;
+      });
+  }
+
+  private getElector() {
+    this.elector = this.localStorage.get('elector');
+    this.elector$ = this.electorService.getElector(this.election, this.elector)
+      .map(data => {
+        return {
+          id: this.elector,
+          locked: data.locked,
+          votes: data.votes
+        };
       });
   }
 
