@@ -49,7 +49,7 @@ export class BallotComponent implements OnInit {
             name: ballots[i].payload.doc.data().name,
             description: ballots[i].payload.doc.data().description,
             type: ballots[i].payload.doc.data().type,
-            candidates: ballots[i].payload.doc.data().options,
+            candidates: ballots[i].payload.doc.data().candidates,
           };
         }
         return formatted;
