@@ -29,6 +29,7 @@ import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
 import {CandidatesService} from './services/candidates.service';
 import { StvBallotComponent } from './ballots/stv-ballot/stv-ballot.component';
 import { AvBallotComponent } from './ballots/av-ballot/av-ballot.component';
+import { BasicBallotComponent } from './ballots/basic-ballot/basic-ballot.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { AvBallotComponent } from './ballots/av-ballot/av-ballot.component';
     AboutComponent,
     DashboardComponent,
     StvBallotComponent,
-    AvBallotComponent
+    AvBallotComponent,
+    BasicBallotComponent
   ],
   imports: [
     BrowserModule,
