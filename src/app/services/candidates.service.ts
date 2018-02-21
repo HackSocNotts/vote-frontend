@@ -9,8 +9,13 @@ export class CandidatesService {
   ) { }
 
   getCandidates(election: string) {
-    const ballots = this.afs.collection('election/' + election + '/candidates', refs => {return refs;});
-    return ballots.snapshotChanges();
+    const collection = this.afs.collection('election/' + election + '/candidates', refs => {return refs;});
+    return collection.snapshotChanges();
+  }
+
+  getCandidate(election: string, uid: string) {
+    const candidate = this.afs.doc('election/' + election + '/candidates/' + uid);
+    return candidate.valueChanges();
   }
 
   deleteCandidate(election: string, candidate: string) {
