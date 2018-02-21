@@ -3,6 +3,7 @@
   <p class="ui blue">{{ballot.description}}</p>
   <h3>
     Please rank your preferences from most preferred to least preferred. Note that there are multiple seats for this position.
+    <br /><small>Enter 1 by your first choice. Highest number by your last choice.</small>
   </h3>
   <div *ngIf="candidates$" class="ui list">
     <div *ngFor="let candidate of candidates$ | async" class="item">
