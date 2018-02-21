@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
+import {ElectorModel} from '../models/elector-model';
 
 
 @Injectable()
@@ -37,7 +38,15 @@ export class ElectorateService {
   }
 
   getElector(election: string, uid: string) {
-    const document = this.afs.doc('election/' + election + '/electorate' + uid);
+    const document = this.afs.doc('election/' + election + '/electorate/' + uid);
     return document.valueChanges();
+  }
+
+  castAdvVote(election: string, elector: ElectorModel, ballot: string, candidate: string, value: number) {
+    const document = this.afs.doc('election/' + election + '/electorate/' + elector.id);
+    const update = elector;
+    update.votes[ballot].votes[candidate] = value;
+    update.locked = false;
+    document.update(update);
   }
 }
