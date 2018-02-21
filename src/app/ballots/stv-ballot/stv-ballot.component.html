@@ -6,10 +6,19 @@
   </h3>
   <div *ngIf="candidates$" class="ui list">
     <div *ngFor="let candidate of candidates$ | async" class="item">
-      {{candidate.name}}
-      <a class="icon" (click)="viewCandidate(candidate)">
-        <i class="info icon"></i>
-      </a>
+      <div class="ui form">
+        <div class="fields">
+          <div class="one wide mini field">
+            <input type="text">
+          </div>
+          <div class="15 wide candidate-text">
+            {{candidate.name}}
+            <a class="icon" (click)="viewCandidate(candidate)">
+              <i class="info icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
