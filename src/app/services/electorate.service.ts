@@ -35,4 +35,9 @@ export class ElectorateService {
     const document = this.afs.doc('election/' + election + '/electorate/' + code);
     return document.delete();
   }
+
+  getElector(election: string, uid: string) {
+    const document = this.afs.doc('election/' + election + '/electorate' + uid);
+    return document.valueChanges();
+  }
 }
