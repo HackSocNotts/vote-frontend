@@ -4,5 +4,30 @@
   <h3>
     Please rank your preferences from most preferred to least preferred. Note that only one candidate can get the seat.
   </h3>
+  <div *ngIf="candidates$" class="ui list">
+    <div *ngFor="let candidate of candidates$ | async" class="item">
+      <div class="ui form">
+        <div class="fields">
+          <div class="one wide mini field">
+            <input type="text">
+          </div>
+          <div class="15 wide candidate-text">
+            {{candidate.name}}
+            <a class="icon" (click)="viewCandidate(candidate)">
+              <i class="info icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="ui fluid primary button">Submit Vote</button>
+  </div>
 </div>
 <div class="ui hidden divider"></div>
+
+<ng-template let-context let-modal="modal" #viewCandidateModal>
+  <div class="header">{{context.name}}</div>
+  <div class="content">
+    {{context.manifesto}}
+  </div>
+</ng-template>
