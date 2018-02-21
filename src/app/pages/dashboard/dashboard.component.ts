@@ -9,6 +9,7 @@ import {ElectorateService} from '../../services/electorate.service';
 import {CandidatesService} from '../../services/candidates.service';
 import {Observable} from 'rxjs/Observable';
 import {CandidateModel} from '../../models/candidate-model';
+import {ElectorModel} from '../../models/elector-model';
 
 @Component({
   selector: 'app-dashboard',
@@ -101,7 +102,7 @@ export class DashboardComponent implements OnInit {
   /**
    * Object container array of electorate details
    */
-  electorateCodes: any;
+  electorateCodes: Observable<ElectorModel[]>;
 
   /**
    * rxjs observable with candidates
@@ -131,17 +132,15 @@ export class DashboardComponent implements OnInit {
   }
 
   private retrieveCodes() {
-    const election_id = this.election.id;
-    this.electorate.getElectorate(election_id)
-      .subscribe(data => {
-        const codes = [];
-        for (let i = 0; i < data.length; i++) {
-         const elector = data[i];
-         codes[i] = {
-           id: elector.payload.doc.id
-         };
+    this.electorateCodes = this.electorate.getElectorate(this.election.id)
+      .map(electorate => {
+        const formatted = [];
+        for (let i = 0; i < electorate.length; i++) {
+          formatted[i] = {
+            id : electorate[i].payload.doc.id
+          };
         }
-        this.electorateCodes = codes;
+        return formatted;
       });
   }
 

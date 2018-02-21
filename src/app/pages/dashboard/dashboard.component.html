@@ -67,7 +67,7 @@
         <div class="ui hidden divider"></div>
         <div class="ui hidden divider"></div>
         <div class="ui list">
-          <div class="item" *ngFor="let code of electorateCodes">
+          <div class="item" *ngFor="let code of electorateCodes | async">
             {{code.id}}
             <a class="red icon right floated" (click)="deleteCode(code.id)">
               <i class="minus icon"></i>
