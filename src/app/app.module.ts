@@ -30,6 +30,7 @@ import {CandidatesService} from './services/candidates.service';
 import { StvBallotComponent } from './ballots/stv-ballot/stv-ballot.component';
 import { AvBallotComponent } from './ballots/av-ballot/av-ballot.component';
 import { BasicBallotComponent } from './ballots/basic-ballot/basic-ballot.component';
+import { NoAbstainBallotComponent } from './ballots/no-abstain-ballot/no-abstain-ballot.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { BasicBallotComponent } from './ballots/basic-ballot/basic-ballot.compon
     DashboardComponent,
     StvBallotComponent,
     AvBallotComponent,
-    BasicBallotComponent
+    BasicBallotComponent,
+    NoAbstainBallotComponent
   ],
   imports: [
     BrowserModule,
