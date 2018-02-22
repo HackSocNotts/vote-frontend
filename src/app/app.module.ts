@@ -33,6 +33,7 @@ import { BasicBallotComponent } from './ballots/basic-ballot/basic-ballot.compon
 import { NoAbstainBallotComponent } from './ballots/no-abstain-ballot/no-abstain-ballot.component';
 import { ResultsComponent } from './pages/results/results.component';
 import { ProccessedResultsComponent } from './pages/results/proccessed-results/proccessed-results.component';
+import { RecievedVotesComponent } from './pages/results/recieved-votes/recieved-votes.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { ProccessedResultsComponent } from './pages/results/proccessed-results/p
     BasicBallotComponent,
     NoAbstainBallotComponent,
     ResultsComponent,
-    ProccessedResultsComponent
+    ProccessedResultsComponent,
+    RecievedVotesComponent
   ],
   imports: [
     BrowserModule,
