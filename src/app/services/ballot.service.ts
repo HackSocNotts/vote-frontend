@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import {BallotModel} from '../models/ballot-model';
 
 @Injectable()
 export class BallotService {
@@ -28,4 +29,17 @@ export class BallotService {
     });
   }
 
+  assignCandidate(election: string, ballot: BallotModel, candidate: string) {
+    const document = this.afs.doc('election/' + election + '/ballots/' + ballot.id);
+    const update = ballot;
+    update.candidates.push(candidate);
+    return document.update(update);
+  }
+
+  unAssignCandidate(election: string, ballot: BallotModel, candidate: string) {
+    const document = this.afs.doc('election/' + election + '/ballots/' + ballot.id);
+    const update = ballot;
+    update.candidates = update.candidates.filter(item => item !== candidate);
+    return document.update(update);
+  }
 }
