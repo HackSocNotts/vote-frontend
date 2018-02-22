@@ -108,7 +108,12 @@
 <ng-template let-context let-modal="modal" #ballotModalTemplate>
   <div class="header">{{context.name}}</div>
   <div class="content">
-    <p><strong>Type: </strong><span *ngIf="context.type"></span></p>
+    <p><strong>Type: </strong>
+      <span *ngIf="context.type == 1">Basic</span>
+      <span *ngIf="context.type == 2">No Abstain</span>
+      <span *ngIf="context.type == 3">Single Seat (AV)</span>
+      <span *ngIf="context.type == 4">Multi Seat (STV)</span>
+    </p>
     <p><strong>Description: </strong>{{context.description}}</p>
     <div class="ui list" *ngIf="context.options">
       <div class="item" *ngFor="let option of context.options">
