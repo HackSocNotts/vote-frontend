@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthGuard } from '../../guards/auth.guard';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -8,15 +8,30 @@ import { AuthGuard } from '../../guards/auth.guard';
 })
 export class NavbarComponent implements OnInit {
 
+  private authState = null;
+
   constructor(
-    private auth: AuthGuard
+    private af: AngularFireAuth,
   ) { }
 
   ngOnInit() {
+    this.authState = this.af.authState.subscribe((auth) => {
+      this.authState = auth;
+    });
   }
 
-  checkAuth() {
-    return this.auth;
+  isAnonymous(): boolean {
+    console.log('auth', this.authState);
+    if (this.authState !== null) {
+      return this.authState.isAnonymous;
+    }
+    return false;
   }
 
+  isAuthed(): boolean {
+    if (this.authState !== null && this.authState.uid !== undefined) {
+      return true;
+    }
+    return false;
+  }
 }
