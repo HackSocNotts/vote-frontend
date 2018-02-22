@@ -197,7 +197,6 @@ export class DashboardComponent implements OnInit {
   }
 
   viewBallot(ballot: BallotModel) {
-    console.log(ballot);
     const config = new TemplateModalConfig<any, any, any>(this.ballotModalTemplate);
     config.context = {
       id: ballot.id,
