@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { VoterGuard } from './guards/voter.guard';
 
 import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'create', component: CreateComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'ballot', component: BallotComponent },
+  { path: 'ballot', component: BallotComponent, canActivate: [VoterGuard]},
   { path: 'results', component: ResultsComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]}
 ];
