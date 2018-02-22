@@ -1,5 +1,6 @@
-<p>
-  results works!
+<p *ngIf="election$ | async as election; else loading">
+  <app-proccessed-results *ngIf="election.locked === true"></app-proccessed-results>
+  <app-recieved-votes *ngIf="election.locked === false"></app-recieved-votes>
 </p>
 <ng-template #loading>
   <div class="spinner">
