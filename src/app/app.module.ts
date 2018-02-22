@@ -9,7 +9,7 @@ import { SuiModule } from 'ng2-semantic-ui';
 import { FormsModule } from '@angular/forms';
 import { LocalStorageModule } from 'angular-2-local-storage';
 
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 import { ElectionService } from './services/election.service';
 
