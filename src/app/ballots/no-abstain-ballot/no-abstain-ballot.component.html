@@ -1,0 +1,45 @@
+<div class="ui segment">
+  <h1>{{ballot.name}}</h1>
+  <p class="ui blue">{{ballot.description}}</p>
+  <h3>
+    You can vote in <strong>favor</strong>,or <strong>against</strong>. Abstaining is not an option.
+  </h3>
+  <div *ngIf="elector$ | async as elector">
+    <div class="two ui buttons" *ngIf="!hasVoted(elector.votes[ballot.id].votes)">
+      <div class="animated green ui button" (click)="favor(elector)">
+        <div class="visible content">
+          In Favor
+        </div>
+        <div class="hidden content">
+          You want this to pass.
+        </div>
+      </div>
+      <div class="or"></div>
+      <div class="animated red ui button" (click)="against(elector)">
+        <div class="visible content">
+          Against
+        </div>
+        <div class="hidden content">
+          You don't want this to pass.
+        </div>
+      </div>
+    </div>
+    <div class="two ui buttons" *ngIf="elector.votes[ballot.id].votes === 1">
+      <button class="fourteen wide red disabled ui button">
+        Against
+      </button>
+      <button class="two wide primary ui button" (click)="reset(elector)">
+        Reset
+      </button>
+    </div>
+    <div class="two ui buttons" *ngIf="elector.votes[ballot.id].votes === 3">
+      <button class="fourteen wide green disabled ui button">
+        In Favor
+      </button>
+      <button class="two wide primary ui button" (click)="reset(elector)">
+        Reset
+      </button>
+    </div>
+  </div>
+</div>
+<div class="ui hidden divider"></div>

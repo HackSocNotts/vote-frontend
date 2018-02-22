@@ -1,0 +1,30 @@
+<div class="ui hidden divider"></div>
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal header">
+      <span class="content">
+        Login to your account.
+      </span>
+    </h2>
+    <div class="ui large form">
+      <div class="ui stacked segment">
+        <h3>Select your Login Method</h3>
+        <div class="ui hidden divider"></div>
+        <button class="ui google plus button" (click)="login('google')">
+          <i class="google icon"></i>
+          Login with Google
+        </button>
+        <div class="ui hidden divider"></div>
+        <button class="ui facebook button" (click)="login('facebook')">
+          <i class="facebook icon"></i>
+          Login with Facebook
+        </button>
+        <div class="ui hidden divider"></div>
+        <button class="ui black button" (click)="login('github')">
+          <i class="github icon"></i>
+          Login with GitHub
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="ui inverted segment">
+  <div class="ui inverted secondary pointing menu">
+    <a class="header item" routerLink="/">BallotApp.tech</a>
+    <a class="item" routerLinkActive="active" routerLink="/ballot" *ngIf="isAnonymous() === true">
+      <i class="list icon"></i>
+      Ballot
+    </a>
+    <a class="item" routerLinkActive="active" routerLink="/results" *ngIf="isAuthed() === true">
+      <i class="sitemap icon"></i>
+      Results
+    </a>
+    <a class="item" routerLinkActive="active" routerLink="/about">
+      <i class="info icon"></i>
+      About
+    </a>
+    <div class="right menu">
+      <a class="item" routerLink="/login" *ngIf="isAuthed() === false">
+        <i class="sign in icon"></i>
+        Login
+      </a>
+      <a class="item" routerLink="/dashboard" *ngIf="isAnonymous() === false && isAuthed() === true">
+        <i class="dashboard icon"></i>
+        Dashboard
+      </a>
+      <a class="item" routerLink="/logout" *ngIf="isAuthed() === true">
+        <i class="sign out icon"></i>
+        Logout
+      </a>
+    </div>
+  </div>
+</div>

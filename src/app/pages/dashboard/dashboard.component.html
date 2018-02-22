@@ -1,0 +1,252 @@
+<div class="ui container" *ngIf="election; else loading">
+  <div class="ui hidden divider"></div>
+  <h1 class="ui teal header">Dashboard<span *ngIf="election"> - {{election.name}}</span></h1>
+  <div class="ui hidden divider"></div>
+  <div class="ui grid">
+    <div class="ui sixteen wide column">
+      <div class="ui clearing segment">
+        <h3 class="ui left floated header">
+          Election Settings
+        </h3>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui list">
+          <div class="item">
+            <strong>Name:</strong> {{election.name}}
+          </div>
+          <div class="item">
+            <strong>Description:</strong> {{election.description}}
+          </div>
+          <div class="item">
+            <strong>Code:</strong> {{election.id}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui sixteen wide column">
+      <div class="ui clearing segment">
+        <span class="ui right floated header">
+          <button class="ui mini basic circular button" (click)="addBallot()">
+            add
+          </button>
+        </span>
+        <h3 class="ui left floated header">
+          Ballots
+        </h3>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui list" *ngIf="ballots">
+          <div class="item" *ngFor="let ballot of ballots | async">
+            <div class="header">{{ballot.name}}</div>
+            {{ballot.description}}
+            <a class="icon right floated" (click)="viewBallot(ballot)">
+              <i class="eye icon"></i>
+            </a>
+            <a class="icon right floated"
+               [swal]="{title: 'Delete ' + ballot.name + '?',
+                  text: 'This action is non-reversible.',
+                  type: 'warning',
+                  showCancelButton: true,
+                  focusCancel: true
+                  }"
+               (confirm)="deleteBallot(ballot)"
+            >
+              <i class="red minus icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui sixteen wide column">
+      <div class="ui clearing segment">
+        <span class="ui right floated header">
+          <button class="ui mini basic circular button" (click)="addCandidate()">
+            add
+          </button>
+        </span>
+        <h3 class="ui left floated header">
+          Candidates
+        </h3>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui list" *ngIf="candidates$">
+          <div class="item" *ngFor="let candidate of candidates$ | async">
+            {{candidate.name}}
+            <a class="icon right floated" (click)="viewCandidate(candidate)">
+              <i class="eye icon"></i>
+            </a>
+            <a class="icon right floated" [swal]="{title: 'Delete ' + candidate.name + '?',
+                  text: 'This action is non-reversible.',
+                  type: 'warning',
+                  showCancelButton: true,
+                  focusCancel: true
+                  }"
+               (confirm)="deleteCandidate(candidate.id)"
+            >
+              <i class="red minus icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui sixteen wide column">
+      <div class="ui clearing segment">
+        <span class="ui right floated header">
+          <button class="ui mini basic circular button" (click)="showGenerateCodes()">
+            generate
+          </button>
+        </span>
+        <h3 class="ui left floated header">
+          Electorate Codes
+        </h3>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui list">
+          <div class="item" *ngFor="let code of electorateCodes | async">
+            {{code.id}}
+            <a class="ui teal horizontal label" *ngIf="code.locked === true">locked</a>
+            <a class="icon right floated" (click)="deleteCode(code.id)" *ngIf="code.locked === false">
+              <i class="red minus icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui sixteen wide column">
+      <button class="large fluid red animated ui button" [swal]="deleteSwal">
+        <div class="visible content">
+          Delete
+        </div>
+        <div class="hidden content">
+          This is non-reversible
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template let-context let-modal="modal" #ballotModalTemplate>
+  <div class="header">{{context.name}}</div>
+  <div class="content">
+    <p><strong>Type: </strong>
+      <span *ngIf="context.type == 1">Basic</span>
+      <span *ngIf="context.type == 2">No Abstain</span>
+      <span *ngIf="context.type == 3">Single Seat (AV)</span>
+      <span *ngIf="context.type == 4">Multi Seat (STV)</span>
+    </p>
+    <p><strong>Description: </strong>{{context.description}}</p>
+    <div class="ui list" *ngIf="context.type > 2">
+      <strong class="item">Candidates:</strong>
+      <div *ngFor="let candidate of staticCandidates">
+        <div class="item" *ngIf="contained(candidate.id, context.candidates, context)">
+          <a class="icon" (click)="unAssignCandidate(candidate, context)">
+            <i class="red minus icon"></i>
+          </a>
+          {{candidate.name}}
+        </div>
+      </div>
+      <div class="ui hidden divider"></div>
+      <strong class="item">Potential Candidates:</strong>
+      <div *ngFor="let candidate of staticCandidates">
+        <div class="item" *ngIf="!contained(candidate.id, context.candidates, context)">
+          <a class="icon" (click)="assignCandidate(candidate, context)">
+            <i class="green plus icon"></i>
+          </a>
+          {{candidate.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #addBallotModalTemplate>
+  <div class="header">Add Ballot</div>
+  <div class="content">
+    <div class="ui labeled input">
+      <div class="ui label">Name</div>
+      <input type="text" placeholder="Name" [(ngModel)]="newBallotName">
+    </div>
+    <div class="ui labeled input">
+      <div class="ui label">Description</div>
+      <input type="text" placeholder="Description" [(ngModel)]="newBallotDescription">
+    </div>
+    <select class="ui search dropdown" [(ngModel)]="newBallotType">
+      <option value="">Select Type</option>
+      <option value="1">Basic</option>
+      <option value="2">No Abstain</option>
+      <option value="3">Single Seat</option>
+      <option value="4">Multiple Seat</option>
+    </select>
+    <button class="ui primary button" (click)="addNewBallot(); modal.deny()">Add</button>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #addCodesModal>
+  <div class="header">Generate Codes</div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <label>How many codes would you like to generate?</label>
+        <div class="ui action left icon input">
+          <input type="number" [(ngModel)]="newCodesCount">
+          <i class="users icon"></i>
+          <button class="ui primary button" (click)="generateCodes(); modal.deny()">Generate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #viewCandidateModal>
+  <div class="header">{{context.name}}</div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <label>Manifesto</label>
+        <textarea  [(ngModel)]="newCandidateManifesto"></textarea>
+      </div>
+    </div>
+    <div class="ui hidden divider"></div>
+    <button class="ui primary fluid button" (click)="editCandidate(context.id, context.name); modal.deny()">Edit</button>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #addCandidateModal>
+  <div class="header">Add Candidate</div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <label>Name</label>
+        <input type="text" [(ngModel)]="newCandidateName">
+      </div>
+      <div class="field">
+        <label>Manifesto</label>
+        <textarea  [(ngModel)]="newCandidateManifesto"></textarea>
+      </div>
+    </div>
+    <div class="ui hidden divider"></div>
+    <button class="ui primary fluid button" (click)="addNewCandidate(); modal.deny()">Add</button>
+  </div>
+</ng-template>
+
+<swal
+  #deleteSwal
+  title="Delete your election?"
+  text="This cannot be undone"
+  type="warning"
+  confirmButtonText="Yes, Delete."
+  confrimButtonClass="ui negative button"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  (confirm)="deleteAccount()"
+>
+</swal>
+<ng-template #loading>
+  <div class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  </div>
+</ng-template>

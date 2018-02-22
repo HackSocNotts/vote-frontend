@@ -1,0 +1,93 @@
+<sui-progress class="tiny active indicating" [value]="progress"></sui-progress>
+<div class="ui three ordered steps">
+  <div class="completed step">
+    <div class="content">
+      <div class="title">Account Creation</div>
+      <div class="description">You've created an account</div>
+    </div>
+  </div>
+  <div class="step" [ngClass]="{'active':progress < 66, 'completed': progress >= 66}">
+    <div class="content">
+      <div class="title">Create Election</div>
+      <div class="description">Create an election</div>
+    </div>
+  </div>
+  <div class="step" [ngClass]="{'active':progress >= 66, 'completed': progress === 100}">
+    <div class="content">
+      <div class="title">Election Settings</div>
+      <div class="description">Set up your election</div>
+    </div>
+  </div>
+</div>
+
+<div class="ui container">
+  <div class="ui middle">
+    <div class="column">
+
+      <div #add class="ui segment" *ngIf="showAdd">
+        <h5 class="ui red header" *ngIf="error">{{error}}</h5>
+        <h2 class="ui primary header">Enter a name for your election.</h2>
+        <div class="ui fluid input">
+          <input type="text" placeholder="Election Name" [(ngModel)]="electionName" (keyup)="checkName()">
+        </div>
+        <div class="ui hidden divider"></div>
+        <button class="ui primary right labeled icon button" (click)="toDescription()">
+          <i class="right arrow icon"></i>
+          Next
+        </button>
+      </div>
+    </div>
+
+    <div #describe class="ui segment" *ngIf="showDescription">
+      <h5 class="ui red header" *ngIf="error">{{error}}</h5>
+      <h2 class="ui primary header">Enter a description for your election.</h2>
+      <div class="ui fluid input">
+        <input type="text" placeholder="Description" [(ngModel)]="description" (keyup)="checkDescription()">
+      </div>
+      <div class="ui hidden divider"></div>
+      <button class="ui left labeled icon button" (click)="toAdd()">
+        <i class="left arrow icon"></i>
+        Back
+      </button>
+      <button class="ui primary right labeled icon button" (click)="toCode()">
+        <i class="right arrow icon"></i>
+        Next
+      </button>
+    </div>
+
+    <div #code class="ui segment" *ngIf="showCode">
+      <h5 class="ui red header" *ngIf="error">{{error}}</h5>
+      <h2 class="ui primary header">Enter a unique id for your election.</h2>
+      <div class="ui fluid input">
+        <input type="text" placeholder="Election Name" [(ngModel)]="electionCode" (keyup)="checkCode()">
+      </div>
+      <div class="ui hidden divider"></div>
+      <button class="ui left labeled icon button" (click)="toDescription()">
+        <i class="left arrow icon"></i>
+        Back
+      </button>
+      <button class="ui primary right labeled icon button" (click)="toReview()">
+        <i class="right arrow icon"></i>
+        Next
+      </button>
+    </div>
+
+    <div #review class="ui segment" *ngIf="showReview">
+      <h5 class="ui red header" *ngIf="error">{{error}}</h5>
+      <h2 class="ui primary header">Review Settings</h2>
+      <strong>Name:</strong> {{electionName}}<br />
+      <strong>Description:</strong><br />
+      {{description}}<br />
+      <strong>Election ID:</strong> {{electionCode}}
+      <div class="ui hidden divider"></div>
+      <button class="ui left labeled icon button" (click)="toCode()">
+        <i class="left arrow icon"></i>
+        Back
+      </button>
+      <button class="ui primary button" (click)="addElection()">
+        Complete
+      </button>
+    </div>
+
+  </div>
+</div>

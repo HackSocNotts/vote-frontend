@@ -1,0 +1,9 @@
+version: '2'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ballotapptech/frontend
+    ports:
+      - '8082:80'
