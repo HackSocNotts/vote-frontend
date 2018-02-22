@@ -7,7 +7,6 @@ import {ElectorateService} from '../../services/electorate.service';
 import {ElectorModel} from '../../models/elector-model';
 import {CandidateModel} from '../../models/candidate-model';
 import {Observable} from 'rxjs/Observable';
-import {isNumber} from 'util';
 
 @Component({
   selector: 'app-av-ballot',
