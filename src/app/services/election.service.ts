@@ -26,7 +26,7 @@ export class ElectionService {
    * @param {string} uid
    * @return {Observable<any>}
    */
-  getDocument(uid: string) {
+  getDocument (uid: string): Observable<any> {
     const document = this.afs.doc('election/' + uid);
     return document.valueChanges();
   }
