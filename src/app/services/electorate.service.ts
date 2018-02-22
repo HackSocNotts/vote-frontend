@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {ElectorModel} from '../models/elector-model';
+import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
@@ -41,7 +42,7 @@ export class ElectorateService {
     return document.delete();
   }
 
-  getElector(election: string, uid: string) {
+  getElector(election: string, uid: string): Observable<any> {
     const document = this.afs.doc('election/' + election + '/electorate/' + uid);
     return document.valueChanges();
   }
