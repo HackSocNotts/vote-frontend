@@ -9,6 +9,7 @@ import {HomeComponent} from './pages/home/home.component';
 import {BallotComponent} from './pages/ballot/ballot.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AboutComponent} from './pages/about/about.component';
+import {ResultsComponent} from './pages/results/results.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'create', component: CreateComponent },
   { path: 'about', component: AboutComponent },
   { path: 'ballot', component: BallotComponent },
+  { path: 'results', component: ResultsComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]}
 ];
 
