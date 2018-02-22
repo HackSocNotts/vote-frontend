@@ -115,9 +115,25 @@
       <span *ngIf="context.type == 4">Multi Seat (STV)</span>
     </p>
     <p><strong>Description: </strong>{{context.description}}</p>
-    <div class="ui list" *ngIf="context.options">
-      <div class="item" *ngFor="let option of context.options">
-        {{ option.name }}
+    <div class="ui list" *ngIf="context.type > 2">
+      <strong class="item">Candidates:</strong>
+      <div *ngFor="let candidate of staticCandidates">
+        <div class="item" *ngIf="contained(candidate.id, context.candidates)">
+          <a class="icon" (click)="unAssignCandidate(candidate.id, context.id)">
+            <i class="red minus icon"></i>
+          </a>
+          {{candidate.name}}
+        </div>
+      </div>
+      <div class="ui hidden divider"></div>
+      <strong class="item">Potential Candidates:</strong>
+      <div *ngFor="let candidate of staticCandidates">
+        <div class="item" *ngIf="!contained(candidate.id, context.candidates)">
+          <a class="icon" (click)="assignCandidate(candidate.id, context.id)">
+            <i class="green plus icon"></i>
+          </a>
+          {{candidate.name}}
+        </div>
       </div>
     </div>
   </div>
