@@ -49,8 +49,8 @@
         </h3>
         <div class="ui hidden divider"></div>
         <div class="ui hidden divider"></div>
-        <div class="ui list" *ngIf="candidates">
-          <div class="item" *ngFor="let candidate of candidates | async">
+        <div class="ui list" *ngIf="candidates$">
+          <div class="item" *ngFor="let candidate of candidates$ | async">
             {{candidate.name}}
             <a class="icon right floated" (click)="viewCandidate(candidate)">
               <i class="eye icon"></i>
