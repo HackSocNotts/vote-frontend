@@ -4,32 +4,58 @@
   <h3>
     You can vote in <strong>favor</strong>, <strong>against</strong>, or <strong>abstain</strong>.
   </h3>
-  <div class="three ui buttons">
-    <div class="animated green ui button">
-      <div class="visible content">
-        In Favor
+  <div *ngIf="elector$ | async as elector">
+    <div class="three ui buttons" *ngIf="!hasVoted(elector.votes[ballot.id].votes)">
+      <div class="animated green ui button" (click)="favor(elector)">
+        <div class="visible content">
+          In Favor
+        </div>
+        <div class="hidden content">
+          You want this to pass.
+        </div>
       </div>
-      <div class="hidden content">
-        You want this to pass.
+      <div class="or"></div>
+      <div class="animated yellow ui button" (click)="abstain(elector)">
+        <div class="visible content">
+          Abstain
+        </div>
+        <div class="hidden content">
+          You don't mind either way.
+        </div>
+      </div>
+      <div class="or"></div>
+      <div class="animated red ui button" (click)="against(elector)">
+        <div class="visible content">
+          Against
+        </div>
+        <div class="hidden content">
+          You don't want this to pass.
+        </div>
       </div>
     </div>
-    <div class="or"></div>
-    <div class="animated yellow ui button">
-      <div class="visible content">
-        Abstain
-      </div>
-      <div class="hidden content">
-        You don't mind either way.
-      </div>
-    </div>
-    <div class="or"></div>
-    <div class="animated red ui button">
-      <div class="visible content">
+    <div class="two ui buttons" *ngIf="elector.votes[ballot.id].votes === 1">
+      <button class="fourteen wide red disabled ui button">
         Against
-      </div>
-      <div class="hidden content">
-        You don't want this to pass.
-      </div>
+      </button>
+      <button class="two wide primary ui button" (click)="reset(elector)">
+        Reset
+      </button>
+    </div>
+    <div class="two ui buttons" *ngIf="elector.votes[ballot.id].votes === 2">
+      <button class="fourteen wide yellow disabled ui button">
+        Abstain
+      </button>
+      <button class="two wide primary ui button" (click)="reset(elector)">
+        Reset
+      </button>
+    </div>
+    <div class="two ui buttons" *ngIf="elector.votes[ballot.id].votes === 3">
+      <button class="fourteen wide green disabled ui button">
+        In Favor
+      </button>
+      <button class="two wide primary ui button" (click)="reset(elector)">
+        Reset
+      </button>
     </div>
   </div>
 </div>
