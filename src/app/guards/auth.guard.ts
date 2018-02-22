@@ -7,11 +7,18 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+
+  private authState = null;
+
   constructor(
-    private auth: AngularFireAuth,
+    private af: AngularFireAuth,
     private localStorage: LocalStorageService,
     private router: Router
-  ) {}
+  ) {
+    this.authState = this.af.authState.subscribe((auth) => {
+      this.authState = auth;
+    });
+  }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -22,8 +29,9 @@ export class AuthGuard implements CanActivate {
     if (electorId) {
       this.router.navigateByUrl('/login');
       return false;
+    } else if (electionId && this.authState && !this.authState.isAnonymous) {
+      return true;
     }
-    if (electionId) { return true; }
     this.router.navigateByUrl('/login');
     return false;
   }
