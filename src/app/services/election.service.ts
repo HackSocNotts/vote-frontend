@@ -45,7 +45,8 @@ export class ElectionService {
     return doc.set({
       name: name,
       description: description,
-      user: user
+      user: user,
+      locked: false
     });
   }
 
