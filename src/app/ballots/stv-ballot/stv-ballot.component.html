@@ -35,7 +35,5 @@
 
 <ng-template let-context let-modal="modal" #viewCandidateModal>
   <div class="header">{{context.name}}</div>
-  <div class="content">
-      {{context.manifesto}}
-  </div>
+  <div class="content" [innerHTML]="context.manifesto | nl2br"></div>
 </ng-template>
