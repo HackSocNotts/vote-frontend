@@ -4,6 +4,8 @@ import {LocalStorageService} from 'angular-2-local-storage';
 import {BallotService} from '../../services/ballot.service';
 import {Observable} from 'rxjs/Observable';
 import {BallotModel} from '../../models/ballot-model';
+import {ElectorModel} from '../../models/elector-model';
+import {ElectorateService} from '../../services/electorate.service';
 
 @Component({
   selector: 'app-ballot',
@@ -16,15 +18,26 @@ export class BallotComponent implements OnInit {
 
   ballots: Observable<BallotModel[]>;
 
+  election_id: string;
+
+  /**
+   * rxjs Observable with Elector Data
+   * @var Observable<ElectorModel>
+   */
+  elector$: Observable<ElectorModel>;
+
   constructor(
     private electionService: ElectionService,
     private localStorage: LocalStorageService,
-    private ballotService: BallotService
+    private ballotService: BallotService,
+    private electorService: ElectorateService
   ) { }
 
   ngOnInit() {
+    this.election_id = this.localStorage.get('election');
     this.retrieveBallots();
     this.retrieveElection();
+    this.getElector();
   }
 
   private retrieveElection() {
@@ -54,5 +67,21 @@ export class BallotComponent implements OnInit {
         }
         return formatted;
       });
+  }
+
+  private getElector() {
+    const elector_id: string = this.localStorage.get('elector');
+    this.elector$ = this.electorService.getElector(this.election_id, elector_id)
+      .map(data => {
+        return {
+          id: elector_id,
+          locked: data.locked,
+          votes: data.votes
+        };
+      });
+  }
+
+  lockBallot(elector: ElectorModel) {
+    this.electorService.lockBallot(this.election_id, elector);
   }
 }
