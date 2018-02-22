@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ElectionService} from '../../services/election.service';
 import { LocalStorageService } from 'angular-2-local-storage';
 import {Router} from '@angular/router';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private electionService: ElectionService,
     private localStorage: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -101,7 +103,9 @@ export class HomeComponent implements OnInit {
     if(this.validCode) {
       this.localStorage.set('election', this.election);
       this.localStorage.set('elector', this.elector);
-      this.router.navigateByUrl('/ballot');
+      this.afAuth.auth.signInAnonymously()
+        .then(() => this.router.navigateByUrl('/ballot'))
+        .catch(() => this.showInvalidCodeError('Something went wrong... Please try again.'));
     } else {
       this.showInvalidCodeError('Code must be valid before continuing.');
     }
