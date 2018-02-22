@@ -143,12 +143,16 @@
 <ng-template let-context let-modal="modal" #addCodesModal>
   <div class="header">Generate Codes</div>
   <div class="content">
-    How many codes would you like to generate?&nbsp;
-    <div class="ui labeled input">
-      <div class="ui label">Number of Codes</div>
-      <input type="number" [(ngModel)]="newCodesCount">
+    <div class="ui form">
+      <div class="field">
+        <label>How many codes would you like to generate?</label>
+        <div class="ui action left icon input">
+          <input type="number" [(ngModel)]="newCodesCount">
+          <i class="users icon"></i>
+          <button class="ui primary button" (click)="generateCodes(); modal.deny()">Generate</button>
+        </div>
+      </div>
     </div>
-    <button class="ui primary button" (click)="generateCodes(); modal.deny()">Generate</button>
   </div>
 </ng-template>
 
