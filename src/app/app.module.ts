@@ -34,6 +34,7 @@ import { NoAbstainBallotComponent } from './ballots/no-abstain-ballot/no-abstain
 import { ResultsComponent } from './pages/results/results.component';
 import { ProccessedResultsComponent } from './pages/results/proccessed-results/proccessed-results.component';
 import { ReceivedVotesComponent } from './pages/results/recieved-votes/recieved-votes.component';
+import { Nl2brPipe } from './pipes/nl2br.pipe';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ReceivedVotesComponent } from './pages/results/recieved-votes/recieved-
     NoAbstainBallotComponent,
     ResultsComponent,
     ProccessedResultsComponent,
-    ReceivedVotesComponent
+    ReceivedVotesComponent,
+    Nl2brPipe
   ],
   imports: [
     BrowserModule,
