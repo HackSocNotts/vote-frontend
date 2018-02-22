@@ -290,7 +290,11 @@ export class DashboardComponent implements OnInit {
   }
 
 
-    contained(needle: any, haystack: any[]) {
+  contained(needle: any, haystack: any[], ballot: BallotModel) {
+    if (haystack === undefined && ballot) {
+      this.ballotService.addCandidates(this.election.id, ballot);
+      return false;
+    }
     return haystack.includes(needle);
   }
 

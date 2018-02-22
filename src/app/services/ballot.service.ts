@@ -25,8 +25,16 @@ export class BallotService {
     return collection.add({
       name: ballot.name,
       description: ballot.description,
-      type: ballot.type
+      type: ballot.type,
+      candidates: []
     });
+  }
+
+  addCandidates(election: string, ballot: BallotModel) {
+    const document = this.afs.doc('election/' + election + '/ballots/' + ballot.id);
+    const update = ballot;
+    update.candidates = [];
+    return document.update(update);
   }
 
   assignCandidate(election: string, ballot: BallotModel, candidate: string) {

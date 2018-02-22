@@ -118,7 +118,7 @@
     <div class="ui list" *ngIf="context.type > 2">
       <strong class="item">Candidates:</strong>
       <div *ngFor="let candidate of staticCandidates">
-        <div class="item" *ngIf="contained(candidate.id, context.candidates)">
+        <div class="item" *ngIf="contained(candidate.id, context.candidates, context)">
           <a class="icon" (click)="unAssignCandidate(candidate, context)">
             <i class="red minus icon"></i>
           </a>
@@ -128,7 +128,7 @@
       <div class="ui hidden divider"></div>
       <strong class="item">Potential Candidates:</strong>
       <div *ngFor="let candidate of staticCandidates">
-        <div class="item" *ngIf="!contained(candidate.id, context.candidates)">
+        <div class="item" *ngIf="!contained(candidate.id, context.candidates, context)">
           <a class="icon" (click)="assignCandidate(candidate, context)">
             <i class="green plus icon"></i>
           </a>
