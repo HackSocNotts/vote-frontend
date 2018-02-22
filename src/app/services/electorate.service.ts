@@ -46,7 +46,21 @@ export class ElectorateService {
     return document.valueChanges();
   }
 
-  addBallot(election: string, elector: ElectorModel, ballot: string) {
+  addBasicBallot(election: string, elector: ElectorModel, ballot: string) {
+    const document = this.afs.doc('election/' + election + '/electorate/' + elector.id);
+    const update = elector;
+    update.votes[ballot] = {ballotUID: ballot, votes: NaN};
+    document.update(update);
+  }
+
+  castBasicVote(election: string, elector: ElectorModel, ballot: string, value: number) {
+    const document = this.afs.doc('election/' + election + '/electorate/' + elector.id);
+    const update = elector;
+    update.votes[ballot].votes = value;
+    document.update(update);
+  }
+
+  addAdvBallot(election: string, elector: ElectorModel, ballot: string) {
     const document = this.afs.doc('election/' + election + '/electorate/' + elector.id);
     const update = elector;
     update.votes[ballot] = {ballotUID: ballot, votes: {}};
