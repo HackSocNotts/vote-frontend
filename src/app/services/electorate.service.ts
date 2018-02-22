@@ -71,7 +71,13 @@ export class ElectorateService {
     const document = this.afs.doc('election/' + election + '/electorate/' + elector.id);
     const update = elector;
     update.votes[ballot].votes[candidate] = value;
-    update.locked = false;
+    document.update(update);
+  }
+
+  lockBallot(election: string, elector: ElectorModel) {
+    const document = this.afs.doc('election/' + election + '/electorate/' + elector.id);
+    const update = elector;
+    update.locked = true;
     document.update(update);
   }
 }
