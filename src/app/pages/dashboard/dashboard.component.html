@@ -22,8 +22,16 @@
             <a class="icon right floated" (click)="viewBallot(ballot)">
               <i class="eye icon"></i>
             </a>
-            <a class="red icon right floated" (click)="deleteBallot(ballot)">
-              <i class="minus icon"></i>
+            <a class="icon right floated"
+               [swal]="{title: 'Delete ' + ballot.name + '?',
+                  text: 'This action is non-reversible.',
+                  type: 'warning',
+                  showCancelButton: true,
+                  focusCancel: true
+                  }"
+               (confirm)="deleteBallot(ballot)"
+            >
+              <i class="red minus icon"></i>
             </a>
           </div>
         </div>
@@ -47,8 +55,15 @@
             <a class="icon right floated" (click)="viewCandidate(candidate)">
               <i class="eye icon"></i>
             </a>
-            <a class="red icon right floated" (click)="deleteCandidate(candidate.id)">
-              <i class="minus icon"></i>
+            <a class="icon right floated" [swal]="{title: 'Delete ' + candidate.name + '?',
+                  text: 'This action is non-reversible.',
+                  type: 'warning',
+                  showCancelButton: true,
+                  focusCancel: true
+                  }"
+               (confirm)="deleteCandidate(candidate.id)"
+            >
+              <i class="red minus icon"></i>
             </a>
           </div>
         </div>
