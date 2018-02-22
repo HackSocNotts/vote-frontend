@@ -282,4 +282,17 @@ export class DashboardComponent implements OnInit {
       .open(config);
   }
 
+  assignCandidate(candidate_uid: string, ballot_uid: string) {
+    console.log('Assign %s to %s', candidate_uid, ballot_uid);
+  }
+
+  unAssignCandidate(candidate_uid: string, ballot_uid: string) {
+    console.log('Remove %s from %s', candidate_uid, ballot_uid);
+  }
+
+
+    contained(needle: any, haystack: any[]) {
+    return haystack.includes(needle);
+  }
+
 }
