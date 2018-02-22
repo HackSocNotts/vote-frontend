@@ -102,7 +102,7 @@ export class AvBallotComponent implements OnInit {
 
   checkForBallot(original: ElectorModel) {
     if (original.votes[this.ballot.id] === undefined) {
-      this.electorService.addBallot(this.election, original, this.ballot.id);
+      this.electorService.addAdvBallot(this.election, original, this.ballot.id);
     }
   }
 
