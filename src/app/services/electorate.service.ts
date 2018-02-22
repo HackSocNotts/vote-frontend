@@ -24,8 +24,12 @@ export class ElectorateService {
   addCode(code: string[8], uid: string) {
     const collection = this.afs.collection('election/' + uid + '/electorate');
     const doc = collection.doc(code);
-    console.log('new code: %s', code);
-    return doc.set({});
+    doc.set({});
+    return doc.update({
+      id: code,
+      locked: false,
+      votes: {}
+    });
   }
 
   generateCode() {
@@ -40,6 +44,13 @@ export class ElectorateService {
   getElector(election: string, uid: string) {
     const document = this.afs.doc('election/' + election + '/electorate/' + uid);
     return document.valueChanges();
+  }
+
+  addBallot(election: string, elector: ElectorModel, ballot: string) {
+    const document = this.afs.doc('election/' + election + '/electorate/' + elector.id);
+    const update = elector;
+    update.votes[ballot] = {ballotUID: ballot, votes: {}};
+    document.update(update);
   }
 
   castAdvVote(election: string, elector: ElectorModel, ballot: string, candidate: string, value: number) {

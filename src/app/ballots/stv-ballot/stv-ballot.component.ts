@@ -65,7 +65,6 @@ export class StvBallotComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.ballot);
     this.election = this.localStorage.get('election');
     this.getElector();
     this.getCandidates();
@@ -91,12 +90,20 @@ export class StvBallotComponent implements OnInit {
     this.elector_id = this.localStorage.get('elector');
     this.elector$ = this.electorService.getElector(this.election, this.elector_id)
       .map(data => {
-        return {
+        const elector = {
           id: this.elector_id,
           locked: data.locked,
           votes: data.votes
         };
+        this.checkForBallot(elector);
+        return elector;
       });
+  }
+
+  checkForBallot(original: ElectorModel) {
+    if (original.votes[this.ballot.id] === undefined) {
+      this.electorService.addBallot(this.election, original, this.ballot.id);
+    }
   }
 
   viewCandidate(candidate: any) {
