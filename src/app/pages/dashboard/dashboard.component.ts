@@ -137,7 +137,9 @@ export class DashboardComponent implements OnInit {
         const formatted = [];
         for (let i = 0; i < electorate.length; i++) {
           formatted[i] = {
-            id : electorate[i].payload.doc.id
+            id : electorate[i].payload.doc.id,
+            locked: electorate[i].payload.doc.data().locked,
+            votes: electorate[i].payload.doc.data().votes
           };
         }
         return formatted;
