@@ -1,3 +1,21 @@
-<p>
-  recieved-votes works!
-</p>
+<div class="ui container" *ngIf="electorate$ | async as electorate">
+  <div class="ui hidden divider"></div>
+  <div class="ui horizontal divider">
+    <h1>{{election.name}}</h1>
+  </div>
+  <h3 class="ui header">Tally of received ballots</h3>
+  <div class="ui hidden divider"></div>
+  The following ballots have been submitted:
+  <ul class="ui bulleted list">
+    <span *ngFor="let elector of electorate">
+      <li class="item" *ngIf="elector.locked === true">{{elector.id}}</li>
+    </span>
+  </ul>
+  <div class="ui hidden divider"></div>
+  <p>
+    If you do not see your ballot code on the list above, it is likely because you did not click finalise at the bottom of your ballot.
+  </p>
+  <p>
+    Note: Ballots that have not been finalised/submitted will not be processed.
+  </p>
+</div>
