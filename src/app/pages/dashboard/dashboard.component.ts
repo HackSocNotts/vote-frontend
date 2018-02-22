@@ -10,6 +10,7 @@ import {CandidatesService} from '../../services/candidates.service';
 import {Observable} from 'rxjs/Observable';
 import {CandidateModel} from '../../models/candidate-model';
 import {ElectorModel} from '../../models/elector-model';
+import {tap, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -107,7 +108,13 @@ export class DashboardComponent implements OnInit {
   /**
    * rxjs observable with candidates
    */
-  candidates: Observable<CandidateModel[]>;
+  candidates$: Observable<CandidateModel[]>;
+
+  /**
+   * Array of candidates
+   * Static array for ng-templates to access
+   */
+  staticCandidates: CandidateModel[];
 
   constructor(
     private localStorage: LocalStorageService,
@@ -164,22 +171,34 @@ export class DashboardComponent implements OnInit {
   }
 
   private retrieveCandidates() {
-    this.candidates = this.candidatesService.getCandidates(this.election.id)
-      .map(candidates => {
-      const formatted = [];
-      for (let i = 0; i < candidates.length; i++) {
-        formatted[i] = {
-          id: candidates[i].payload.doc.id,
-          name: candidates[i].payload.doc.data().name,
-          manifesto: candidates[i].payload.doc.data().manifesto
-        };
-      }
-      return formatted;
-    });
+    this.candidates$ = this.candidatesService.getCandidates(this.election.id)
+    .pipe(
+      map(candidates => {
+        const formatted = [];
+        for (let i = 0; i < candidates.length; i++) {
+          formatted[i] = {
+            id: candidates[i].payload.doc.id,
+            name: candidates[i].payload.doc.data().name,
+            manifesto: candidates[i].payload.doc.data().manifesto
+          };
+        }
+        return formatted;
+      }),
+      /**
+       * @todo Remove the need for tap
+       * THIS IS REALLY REALLY BAD
+       * DON'T DO THIS
+       * FIGURE OUT A BETTER WAY TO DO IT
+       */
+      tap(data => {
+        this.staticCandidates = data;
+      })
+    );
   }
 
   viewBallot(ballot: BallotModel) {
-    const config = new TemplateModalConfig<BallotModel, any, any>(this.ballotModalTemplate);
+    console.log(ballot);
+    const config = new TemplateModalConfig<any, any, any>(this.ballotModalTemplate);
     config.context = {
       id: ballot.id,
       name: ballot.name,
