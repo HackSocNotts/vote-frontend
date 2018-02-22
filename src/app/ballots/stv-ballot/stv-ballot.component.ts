@@ -22,16 +22,16 @@ export class StvBallotComponent implements OnInit {
   election: string;
 
   /**
-   * Electorate ID
-   * @var string
-   */
-  elector: string;
-
-  /**
    * rxjs Observable with Elector Data
    * @var Observable<ElectorModel>
    */
   elector$: Observable<ElectorModel>;
+
+  /**
+   * Elector ID
+   * @var string
+   */
+  elector_id: string;
 
   /**
    * The ballot data
@@ -44,6 +44,12 @@ export class StvBallotComponent implements OnInit {
    * @var Observable<CandidateModel[]>
    */
   candidates$: Observable<CandidateModel[]>;
+
+  /**
+   * Error to show if invalid input
+   * @var string
+   */
+  error: string;
 
   /**
    * Modal for viewing a candidate
@@ -61,6 +67,7 @@ export class StvBallotComponent implements OnInit {
   ngOnInit() {
     console.log(this.ballot);
     this.election = this.localStorage.get('election');
+    this.getElector();
     this.getCandidates();
   }
 
@@ -81,11 +88,11 @@ export class StvBallotComponent implements OnInit {
   }
 
   private getElector() {
-    this.elector = this.localStorage.get('elector');
-    this.elector$ = this.electorService.getElector(this.election, this.elector)
+    this.elector_id = this.localStorage.get('elector');
+    this.elector$ = this.electorService.getElector(this.election, this.elector_id)
       .map(data => {
         return {
-          id: this.elector,
+          id: this.elector_id,
           locked: data.locked,
           votes: data.votes
         };
@@ -99,4 +106,21 @@ export class StvBallotComponent implements OnInit {
       .open(config);
   }
 
+  updateVote(candidate: CandidateModel, original: ElectorModel, raw_vote: string) {
+    const vote: number = parseInt(raw_vote, 10);
+    if (raw_vote > this.ballot.candidates.length) {
+      this.error = 'Rank for ' + candidate.name + ' is out of range. Must be between 1 and ' + this.ballot.candidates.length + '.';
+    } else {
+      this.error = '';
+    }
+    this.electorService.castAdvVote(this.election, original, this.ballot.id, candidate.id, vote);
+  }
+
+  showVal(data) {
+    if (data !== undefined && !isNaN(data)) {
+      return data;
+    } else {
+      return '';
+    }
+  }
 }
