@@ -282,12 +282,12 @@ export class DashboardComponent implements OnInit {
       .open(config);
   }
 
-  assignCandidate(candidate_uid: string, ballot_uid: string) {
-    console.log('Assign %s to %s', candidate_uid, ballot_uid);
+  assignCandidate(candidate: CandidateModel, ballot: BallotModel) {
+    this.ballotService.assignCandidate(this.election.id, ballot, candidate.id);
   }
 
-  unAssignCandidate(candidate_uid: string, ballot_uid: string) {
-    console.log('Remove %s from %s', candidate_uid, ballot_uid);
+  unAssignCandidate(candidate: CandidateModel, ballot: BallotModel) {
+    this.ballotService.unAssignCandidate(this.election.id, ballot, candidate.id);
   }
 
 
