@@ -16,7 +16,8 @@ before_script:
   - npm install -g @angular/cli
   - echo $(sed "s/commitString/$TRAVIS_COMMIT/" ./src/environments/environment.prod.ts) > ./src/environments/environment.prod.ts;
 script:
-  - npm run build
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then npm run build-prod; fi
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then npm run build-remote; fi
   - docker-compose build
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then docker tag $DOCKER_ORG/frontend $DOCKER_ORG/frontend:latest;

@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  remote: true,
   firebase: {
     apiKey: 'AIzaSyAV_4AuxEwLcm0EFArLtMO98e94bHshR7I',
     authDomain: 'ballot-app-dev.firebaseapp.com',
