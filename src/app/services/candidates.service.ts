@@ -30,9 +30,15 @@ export class CandidatesService {
 
   addCandidate(election: string, candidate: any) {
     const collection = this.afs.collection('election/' + election + '/candidates');
-    return collection.add({
+    const candidate_data = {
+      id: '',
       name: candidate.name,
-      manifesto: candidate.manifesto,
-    });
+      manifesto: candidate.manifesto
+    };
+    return collection.add(candidate)
+      .then(newCandidate => {
+        candidate_data.id = newCandidate.id;
+        return newCandidate.update(candidate_data);
+      });
   }
 }
