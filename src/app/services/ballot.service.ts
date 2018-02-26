@@ -22,12 +22,19 @@ export class BallotService {
 
   addBallot(election: string, ballot: any) {
     const collection = this.afs.collection('election/' + election + '/ballots');
-    return collection.add({
+    const ballotData = {
+      id: '',
       name: ballot.name,
       description: ballot.description,
       type: ballot.type,
       candidates: []
-    });
+    };
+
+    return collection.add(ballotData)
+      .then(newBallot => {
+        ballotData.id = newBallot.id;
+        return newBallot.update(ballotData);
+      });
   }
 
   addCandidates(election: string, ballot: BallotModel) {
