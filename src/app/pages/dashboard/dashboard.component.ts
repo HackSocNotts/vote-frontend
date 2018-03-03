@@ -11,6 +11,7 @@ import {Observable} from 'rxjs/Observable';
 import {CandidateModel} from '../../models/candidate-model';
 import {ElectorModel} from '../../models/elector-model';
 import {tap, map} from 'rxjs/operators';
+import {Modal} from 'ng2-semantic-ui/dist';
 
 @Component({
   selector: 'app-dashboard',
@@ -219,13 +220,14 @@ export class DashboardComponent implements OnInit {
     this.modalService.open(config);
   }
 
-  addNewBallot() {
+  addNewBallot(modal: Modal) {
     const data = {
       name: this.newBallotName,
       description: this.newBallotDescription,
       type: this.newBallotType
     };
     this.ballotService.addBallot(this.election.id, data);
+    modal.deny();
     this.newBallotName = '';
     this.newBallotDescription = '';
     this.newBallotType = 0;
