@@ -133,7 +133,7 @@
       <span *ngIf="context.type == 3">Single Seat (AV)</span>
       <span *ngIf="context.type == 4">Multi Seat (STV)</span>
     </p>
-    <p><strong>Description: </strong>{{context.description}}</p>
+    <p><strong>Description: </strong><br /><span [innerHTML]="context.description | nl2br"></span></p>
     <div class="ui list" *ngIf="context.type > 2">
       <strong class="item">Candidates:</strong>
       <div *ngFor="let candidate of staticCandidates">
