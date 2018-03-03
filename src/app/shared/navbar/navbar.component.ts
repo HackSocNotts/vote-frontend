@@ -21,7 +21,6 @@ export class NavbarComponent implements OnInit {
   }
 
   isAnonymous(): boolean {
-    console.log('auth', this.authState);
     if (this.authState !== null) {
       return this.authState.isAnonymous;
     }
