@@ -117,6 +117,11 @@ export class DashboardComponent implements OnInit {
    */
   staticCandidates: CandidateModel[];
 
+  /**
+   * Error to show in modals
+   */
+  modalError: string;
+
   constructor(
     private localStorage: LocalStorageService,
     private electionService: ElectionService,
@@ -226,11 +231,27 @@ export class DashboardComponent implements OnInit {
       description: this.newBallotDescription,
       type: this.newBallotType
     };
+    // Check Name
+    if (!data.name) {
+      this.modalError = 'Must specify a name.';
+      return false;
+    }
+    // Check Description
+    if (!data.description) {
+      this.modalError = 'Must add a description.';
+      return false;
+    }
+    // Check for valid type
+    if (![1, 2, 3].includes(data.type)) {
+      this.modalError = 'Must select a valid type';
+      return false;
+    }
     this.ballotService.addBallot(this.election.id, data);
     modal.deny('added');
     this.newBallotName = '';
     this.newBallotDescription = '';
     this.newBallotType = 0;
+    this.modalError = '';
   }
 
   deleteAccount() {
