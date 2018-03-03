@@ -38,7 +38,6 @@
         <div class="ui list" *ngIf="ballots">
           <div class="item" *ngFor="let ballot of ballots | async">
             <div class="header">{{ballot.name}}</div>
-            {{ballot.description}}
             <a class="icon right floated" (click)="viewBallot(ballot)">
               <i class="eye icon"></i>
             </a>
