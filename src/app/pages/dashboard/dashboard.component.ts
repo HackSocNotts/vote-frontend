@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
    *
    * Linked ot NgModel for description in add ballot modal
    */
-  newBallotType: number;
+  newBallotType: string;
 
   /**
    * Modal for adding codes
@@ -229,7 +229,7 @@ export class DashboardComponent implements OnInit {
     const data = {
       name: this.newBallotName,
       description: this.newBallotDescription,
-      type: this.newBallotType
+      type: parseInt(this.newBallotType, 10)
     };
     // Check Name
     if (!data.name) {
@@ -242,15 +242,16 @@ export class DashboardComponent implements OnInit {
       return false;
     }
     // Check for valid type
-    if (![1, 2, 3].includes(data.type)) {
+    if (!data.type) {
       this.modalError = 'Must select a valid type';
       return false;
     }
+    console.log(data);
     this.ballotService.addBallot(this.election.id, data);
     modal.deny('added');
     this.newBallotName = '';
     this.newBallotDescription = '';
-    this.newBallotType = 0;
+    this.newBallotType = undefined;
     this.modalError = '';
   }
 
