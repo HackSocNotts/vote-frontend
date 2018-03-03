@@ -11,6 +11,7 @@ import {Observable} from 'rxjs/Observable';
 import {CandidateModel} from '../../models/candidate-model';
 import {ElectorModel} from '../../models/elector-model';
 import {tap, map} from 'rxjs/operators';
+import {Modal} from 'ng2-semantic-ui/dist';
 
 @Component({
   selector: 'app-dashboard',
@@ -49,7 +50,7 @@ export class DashboardComponent implements OnInit {
    *
    * Linked ot NgModel for description in add ballot modal
    */
-  newBallotType: number;
+  newBallotType: string;
 
   /**
    * Modal for adding codes
@@ -115,6 +116,11 @@ export class DashboardComponent implements OnInit {
    * Static array for ng-templates to access
    */
   staticCandidates: CandidateModel[];
+
+  /**
+   * Error to show in modals
+   */
+  modalError: string;
 
   constructor(
     private localStorage: LocalStorageService,
@@ -219,16 +225,34 @@ export class DashboardComponent implements OnInit {
     this.modalService.open(config);
   }
 
-  addNewBallot() {
+  addNewBallot(modal: Modal<any, any, any>) {
     const data = {
       name: this.newBallotName,
       description: this.newBallotDescription,
-      type: this.newBallotType
+      type: parseInt(this.newBallotType, 10)
     };
+    // Check Name
+    if (!data.name) {
+      this.modalError = 'Must specify a name.';
+      return false;
+    }
+    // Check Description
+    if (!data.description) {
+      this.modalError = 'Must add a description.';
+      return false;
+    }
+    // Check for valid type
+    if (!data.type) {
+      this.modalError = 'Must select a valid type';
+      return false;
+    }
+    console.log(data);
     this.ballotService.addBallot(this.election.id, data);
+    modal.deny('added');
     this.newBallotName = '';
     this.newBallotDescription = '';
-    this.newBallotType = 0;
+    this.newBallotType = undefined;
+    this.modalError = '';
   }
 
   deleteAccount() {
