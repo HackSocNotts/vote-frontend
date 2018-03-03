@@ -220,14 +220,14 @@ export class DashboardComponent implements OnInit {
     this.modalService.open(config);
   }
 
-  addNewBallot(modal: Modal) {
+  addNewBallot(modal: Modal<any, any, any>) {
     const data = {
       name: this.newBallotName,
       description: this.newBallotDescription,
       type: this.newBallotType
     };
     this.ballotService.addBallot(this.election.id, data);
-    modal.deny();
+    modal.deny('added');
     this.newBallotName = '';
     this.newBallotDescription = '';
     this.newBallotType = 0;
