@@ -36,6 +36,7 @@ import { ProccessedResultsComponent } from './pages/results/proccessed-results/p
 import { ReceivedVotesComponent } from './pages/results/recieved-votes/recieved-votes.component';
 import { Nl2brPipe } from './pipes/nl2br.pipe';
 import { VoterGuard } from './guards/voter.guard';
+import { CalculateService } from './services/calculate.service';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { VoterGuard } from './guards/voter.guard';
     AuthGuard,
     ElectorateService,
     CandidatesService,
-    VoterGuard
+    VoterGuard,
+    CalculateService
   ],
   bootstrap: [AppComponent]
 })
