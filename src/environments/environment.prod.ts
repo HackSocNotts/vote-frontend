@@ -7,5 +7,6 @@ export const environment = {
     projectId: 'eballot-46bb1',
     storageBucket: 'eballot-46bb1.appspot.com',
     messagingSenderId: '515038220810'
-  }
+  },
+  baseUrl: 'https://us-central1-eballot-46bb1.cloudfunctions.net/'
 };

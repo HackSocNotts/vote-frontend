@@ -35,9 +35,9 @@
         </h3>
         <div class="ui hidden divider"></div>
         <div class="ui hidden divider"></div>
-        <div class="ui list" *ngIf="ballots">
+        <div class="ui relaxed divided list" *ngIf="ballots">
           <div class="item" *ngFor="let ballot of ballots | async">
-            <div class="header">{{ballot.name}}</div>
+            <strong>{{ballot.name}}</strong>
             <a class="icon right floated" (click)="viewBallot(ballot)">
               <i class="eye icon"></i>
             </a>
@@ -51,6 +51,9 @@
                (confirm)="deleteBallot(ballot)"
             >
               <i class="red minus icon"></i>
+            </a>
+            <a class="icon right floated" (click)="calculate(ballot)">
+              <i class="green check icon"></i>
             </a>
           </div>
         </div>
@@ -68,7 +71,7 @@
         </h3>
         <div class="ui hidden divider"></div>
         <div class="ui hidden divider"></div>
-        <div class="ui list" *ngIf="candidates$">
+        <div class="ui relaxed divided list" *ngIf="candidates$">
           <div class="item" *ngFor="let candidate of candidates$ | async">
             {{candidate.name}}
             <a class="icon right floated" (click)="viewCandidate(candidate)">
@@ -100,7 +103,7 @@
         </h3>
         <div class="ui hidden divider"></div>
         <div class="ui hidden divider"></div>
-        <div class="ui list">
+        <div class="ui relaxed divided list">
           <div class="item" *ngFor="let code of electorateCodes | async">
             {{code.id}}
             <a class="ui teal horizontal label" *ngIf="code.locked === true">locked</a>
@@ -258,5 +261,48 @@
     <div class="rect3"></div>
     <div class="rect4"></div>
     <div class="rect5"></div>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #basicBallotCalculationModal>
+  <div class="header">Ballot Result</div>
+  <div class="content">
+    <div *ngIf="context | async as result; else loading">
+      <h3 class="header">
+        Ballot (<span class="ui teal text">{{result.ballot.name}}</span>) has
+        <span *ngIf="result.result.passed === true" class="ui green text">Passed</span>
+        <span *ngIf="result.result.passed === false" class="ui red text">Failed</span>
+      </h3>
+      <h4 class="header">Breakdown of results:</h4>
+      <div class="ui grid">
+        <div class="three wide column">
+          <strong>For: </strong>
+          <span>{{result.result.for}}</span>
+        </div>
+        <div class="three wide column">
+          <strong>Abstained: </strong>
+          <span>{{result.result.abstain}}</span>
+        </div>
+        <div class="three wide column">
+          <strong>Against: </strong>
+          <span>{{result.result.against}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #AVBallotCalculationModal>
+  <div class="header">Ballot Result</div>
+  <div class="content">
+    <div *ngIf="context | async as result; else loading">
+      <h3 class="header">
+        <span class="ui green text">{{result.result.elected.name}}</span> has been elected for ballot (<span class="ui teal text">{{result.ballot.name}}</span>)
+      </h3>
+      <h4 class="header">Log of rounds:</h4>
+      <div class="ui relaxed divided list">
+        <div class="item" *ngFor="let logItem of result.result.log">{{logItem}}</div>
+      </div>
+    </div>
   </div>
 </ng-template>

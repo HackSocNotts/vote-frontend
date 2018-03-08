@@ -12,6 +12,8 @@ import {CandidateModel} from '../../models/candidate-model';
 import {ElectorModel} from '../../models/elector-model';
 import {tap, map} from 'rxjs/operators';
 import {Modal} from 'ng2-semantic-ui/dist';
+import {CalculateService} from '../../services/calculate.service';
+import {BallotType} from '../../models/ballot-type.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,8 +30,20 @@ export class DashboardComponent implements OnInit {
   /**
    * Modal for adding a ballot
    */
+  @ViewChild('basicBallotCalculationModal')
+  public basicBallotCalculationModal: ModalTemplate<any, any, any>;
+
+  /**
+   * Modal for viewing a basic ballot calculation
+   */
   @ViewChild('addBallotModalTemplate')
   public addBallotModalTemplate: ModalTemplate<any, any, any>;
+
+  /**
+   * Modal for viewing a AV ballot calculation
+   */
+  @ViewChild('AVBallotCalculationModal')
+  public AVBallotCalculationModal: ModalTemplate<any, any, any>;
 
   /**
    * Name of new ballot.
@@ -129,7 +143,8 @@ export class DashboardComponent implements OnInit {
     public modalService: SuiModalService,
     private router: Router,
     private electorate: ElectorateService,
-    private candidatesService: CandidatesService
+    private candidatesService: CandidatesService,
+    private calculateSerive: CalculateService
   ) { }
 
   ngOnInit() {
@@ -322,4 +337,22 @@ export class DashboardComponent implements OnInit {
     return haystack.includes(needle);
   }
 
+  calculate(ballot: BallotModel) {
+    let result: Observable<any>;
+    if (ballot.type < 3) {
+      result = this.calculateSerive.proccess_basic_ballot(this.election.id, ballot.id);
+      const config = new TemplateModalConfig<any, any, any>(this.basicBallotCalculationModal);
+      config.context = result;
+      this.modalService.open(config);
+    } else if (ballot.type === '3' || ballot.type === BallotType.SingleSeat) {
+      result = this.calculateSerive.proccess_av_ballot(this.election.id, ballot.id);
+      const config = new TemplateModalConfig<any, any, any>(this.AVBallotCalculationModal);
+      config.context = result;
+      this.modalService.open(config);
+    } else {
+      console.error('invalid ballot type', ballot.type);
+      return false;
+    }
+    result.subscribe(data => console.log(data));
+  }
 }
