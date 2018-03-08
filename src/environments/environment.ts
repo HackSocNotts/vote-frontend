@@ -12,5 +12,6 @@ export const environment = {
     projectId: 'ballot-app-dev',
     storageBucket: 'ballot-app-dev.appspot.com',
     messagingSenderId: '1149304273'
-  }
+  },
+  baseUrl: 'https://us-central1-ballot-app-dev.cloudfunctions.net/'
 };
