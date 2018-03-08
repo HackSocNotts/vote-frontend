@@ -17,8 +17,8 @@
     <div *ngFor="let candidate of candidates$ | async" class="item">
       <div class="ui form">
         <div class="fields">
-          <div class="one wide mini field">
-            <input type="text" *ngIf="elector$ | async as elector" [value]="showVal(elector.votes[ballot.id].votes[candidate.id])" (change)="updateVote(candidate, elector, $event.target['value'])">
+          <div class="one wide mini field" style="padding: 0; margin-right: 1em;">
+            <input type="text" style="padding: 0;" *ngIf="elector$ | async as elector" [value]="showVal(elector.votes[ballot.id].votes[candidate.id])" (change)="updateVote(candidate, elector, $event.target['value'])">
           </div>
           <div class="15 wide candidate-text">
             {{candidate.name}}

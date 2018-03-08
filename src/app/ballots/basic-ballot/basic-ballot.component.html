@@ -1,6 +1,6 @@
 <div class="ui segment">
   <h1>{{ballot.name}}</h1>
-  <p class="ui blue" [innerHTML]="ballot.description"></p>
+  <p class="ui blue" [innerHTML]="ballot.description | nl2br"></p>
   <h3>
     You can vote in <strong>favor</strong>, <strong>against</strong>, or <strong>abstain</strong>.
   </h3>
