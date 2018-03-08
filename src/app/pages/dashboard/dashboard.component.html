@@ -52,7 +52,7 @@
             >
               <i class="red minus icon"></i>
             </a>
-            <a class="icon right floated">
+            <a class="icon right floated" (click)="calculate(ballot)">
               <i class="green check icon"></i>
             </a>
           </div>
@@ -261,5 +261,33 @@
     <div class="rect3"></div>
     <div class="rect4"></div>
     <div class="rect5"></div>
+  </div>
+</ng-template>
+
+<ng-template let-context let-modal="modal" #basicBallotCalculationModal>
+  <div class="header">Ballot Result</div>
+  <div class="content">
+    <div *ngIf="context | async as result; else loading">
+      <h3 class="header">
+        Ballot (<span class="ui teal text">{{result.ballot.name}}</span>) has
+        <span *ngIf="result.result.passed === true" class="ui green text">Passed</span>
+        <span *ngIf="result.result.passed === false" class="ui red text">Failed</span>
+      </h3>
+      <h4 class="header">Breakdown of results:</h4>
+      <div class="ui grid">
+        <div class="three wide column">
+          <strong>For: </strong>
+          <span>{{result.result.for}}</span>
+        </div>
+        <div class="three wide column">
+          <strong>Abstained: </strong>
+          <span>{{result.result.abstain}}</span>
+        </div>
+        <div class="three wide column">
+          <strong>Against: </strong>
+          <span>{{result.result.against}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </ng-template>
