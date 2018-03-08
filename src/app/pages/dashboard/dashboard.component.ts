@@ -40,6 +40,12 @@ export class DashboardComponent implements OnInit {
   public addBallotModalTemplate: ModalTemplate<any, any, any>;
 
   /**
+   * Modal for viewing a AV ballot calculation
+   */
+  @ViewChild('AVBallotCalculationModal')
+  public AVBallotCalculationModal: ModalTemplate<any, any, any>;
+
+  /**
    * Name of new ballot.
    *
    * Linked ot NgModel for name in add ballot modal
@@ -340,6 +346,9 @@ export class DashboardComponent implements OnInit {
       this.modalService.open(config);
     } else if (ballot.type === '3' || ballot.type === BallotType.SingleSeat) {
       result = this.calculateSerive.proccess_av_ballot(this.election.id, ballot.id);
+      const config = new TemplateModalConfig<any, any, any>(this.AVBallotCalculationModal);
+      config.context = result;
+      this.modalService.open(config);
     } else {
       console.error('invalid ballot type', ballot.type);
       return false;

@@ -291,3 +291,18 @@
     </div>
   </div>
 </ng-template>
+
+<ng-template let-context let-modal="modal" #AVBallotCalculationModal>
+  <div class="header">Ballot Result</div>
+  <div class="content">
+    <div *ngIf="context | async as result; else loading">
+      <h3 class="header">
+        <span class="ui green text">{{result.result.elected.name}}</span> has been elected for ballot (<span class="ui teal text">{{result.ballot.name}}</span>)
+      </h3>
+      <h4 class="header">Log of rounds:</h4>
+      <div class="ui relaxed divided list">
+        <div class="item" *ngFor="let logItem of result.result.log">{{logItem}}</div>
+      </div>
+    </div>
+  </div>
+</ng-template>
