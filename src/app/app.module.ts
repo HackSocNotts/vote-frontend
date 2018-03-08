@@ -37,6 +37,7 @@ import { ReceivedVotesComponent } from './pages/results/recieved-votes/recieved-
 import { Nl2brPipe } from './pipes/nl2br.pipe';
 import { VoterGuard } from './guards/voter.guard';
 import { CalculateService } from './services/calculate.service';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { CalculateService } from './services/calculate.service';
       buttonsStyling: false,
       confirmButtonClass: 'ui primary button',
       cancelButtonClass: 'ui button'
-    })
+    }),
+    HttpClientModule
   ],
   providers: [
     ElectionService,
