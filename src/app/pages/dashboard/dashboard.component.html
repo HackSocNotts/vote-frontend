@@ -35,9 +35,9 @@
         </h3>
         <div class="ui hidden divider"></div>
         <div class="ui hidden divider"></div>
-        <div class="ui list" *ngIf="ballots">
+        <div class="ui relaxed divided list" *ngIf="ballots">
           <div class="item" *ngFor="let ballot of ballots | async">
-            <div class="header">{{ballot.name}}</div>
+            <strong>{{ballot.name}}</strong>
             <a class="icon right floated" (click)="viewBallot(ballot)">
               <i class="eye icon"></i>
             </a>
@@ -51,6 +51,9 @@
                (confirm)="deleteBallot(ballot)"
             >
               <i class="red minus icon"></i>
+            </a>
+            <a class="icon right floated">
+              <i class="green check icon"></i>
             </a>
           </div>
         </div>
@@ -68,7 +71,7 @@
         </h3>
         <div class="ui hidden divider"></div>
         <div class="ui hidden divider"></div>
-        <div class="ui list" *ngIf="candidates$">
+        <div class="ui relaxed divided list" *ngIf="candidates$">
           <div class="item" *ngFor="let candidate of candidates$ | async">
             {{candidate.name}}
             <a class="icon right floated" (click)="viewCandidate(candidate)">
@@ -100,7 +103,7 @@
         </h3>
         <div class="ui hidden divider"></div>
         <div class="ui hidden divider"></div>
-        <div class="ui list">
+        <div class="ui relaxed divided list">
           <div class="item" *ngFor="let code of electorateCodes | async">
             {{code.id}}
             <a class="ui teal horizontal label" *ngIf="code.locked === true">locked</a>
