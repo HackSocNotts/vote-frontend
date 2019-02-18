@@ -38,6 +38,12 @@ export class LoginComponent implements OnInit {
     }
 
     loginData.then((credential) => {
+      const hackSocEmailRegex = /(.*)\@hacksocnotts.co.uk/;
+      if (!hackSocEmailRegex.test(credential.user.email)) {
+        credential.user.delete();
+        console.warn('You must have an @hacksocnotts.co.uk email to use this service.');
+        return;
+      }
       this.checkForElection(credential.user.uid);
     });
   }
