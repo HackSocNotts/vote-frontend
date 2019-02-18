@@ -7,12 +7,12 @@ export const environment = {
   production: false,
   remote: true,
   firebase: {
-    apiKey: 'AIzaSyAV_4AuxEwLcm0EFArLtMO98e94bHshR7I',
-    authDomain: 'ballot-app-dev.firebaseapp.com',
-    databaseURL: 'https://ballot-app-dev.firebaseio.com',
-    projectId: 'ballot-app-dev',
-    storageBucket: 'ballot-app-dev.appspot.com',
-    messagingSenderId: '1149304273'
+    apiKey: 'AIzaSyCGz8pjgAp-lwG37Fxp1ihQt6kgruOIGRQ',
+    authDomain: 'hacksoc-vote.firebaseapp.com',
+    databaseURL: 'https://hacksoc-vote.firebaseio.com',
+    projectId: 'hacksoc-vote',
+    storageBucket: 'hacksoc-vote.appspot.com',
+    messagingSenderId: '1076031256727'
   },
-  baseUrl: 'https://us-central1-ballot-app-dev.cloudfunctions.net/'
+  baseUrl: 'https://us-central1-hacksoc-vote.cloudfunctions.net/'
 };

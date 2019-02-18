@@ -1,12 +1,12 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: 'AIzaSyAfYcyD4gkifod_IC5UXFdkWHDqZOV3eqI',
-    authDomain: 'eballot-46bb1.firebaseapp.com',
-    databaseURL: 'https://eballot-46bb1.firebaseio.com',
-    projectId: 'eballot-46bb1',
-    storageBucket: 'eballot-46bb1.appspot.com',
-    messagingSenderId: '515038220810'
+    apiKey: 'AIzaSyCGz8pjgAp-lwG37Fxp1ihQt6kgruOIGRQ',
+    authDomain: 'hacksoc-vote.firebaseapp.com',
+    databaseURL: 'https://hacksoc-vote.firebaseio.com',
+    projectId: 'hacksoc-vote',
+    storageBucket: 'hacksoc-vote.appspot.com',
+    messagingSenderId: '1076031256727'
   },
-  baseUrl: 'https://us-central1-eballot-46bb1.cloudfunctions.net/'
+  baseUrl: 'https://us-central1-hacksoc-vote.cloudfunctions.net/'
 };
