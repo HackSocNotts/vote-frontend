@@ -344,7 +344,7 @@ export class DashboardComponent implements OnInit {
       const config = new TemplateModalConfig<any, any, any>(this.basicBallotCalculationModal);
       config.context = result;
       this.modalService.open(config);
-    } else if (ballot.type === '3' || ballot.type === BallotType.SingleSeat) {
+    } else if (ballot.type === 3 || ballot.type === BallotType.SingleSeat) {
       result = this.calculateSerive.proccess_av_ballot(this.election.id, ballot.id);
       const config = new TemplateModalConfig<any, any, any>(this.AVBallotCalculationModal);
       config.context = result;
