@@ -13,4 +13,9 @@ export interface ElectorModel {
    * Object container vote data
    */
   votes: any;
+
+  /**
+   * Whether or not the code has been assigned
+   */
+  assigned: boolean;
 }

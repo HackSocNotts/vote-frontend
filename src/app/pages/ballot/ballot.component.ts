@@ -76,6 +76,7 @@ export class BallotComponent implements OnInit {
         return {
           id: elector_id,
           locked: data.locked,
+          assigned: data.assigned,
           votes: data.votes
         };
       });

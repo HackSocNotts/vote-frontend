@@ -29,6 +29,7 @@ export class ElectorateService {
     return doc.update({
       id: code,
       locked: false,
+      assigned: false,
       votes: {}
     });
   }

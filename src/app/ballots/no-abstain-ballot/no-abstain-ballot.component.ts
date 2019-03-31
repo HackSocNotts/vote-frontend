@@ -53,6 +53,7 @@ export class NoAbstainBallotComponent implements OnInit {
         const elector = {
           id: this.elector_id,
           locked: data.locked,
+          assigned: data.assigned,
           votes: data.votes
         };
         this.checkForBallot(elector);

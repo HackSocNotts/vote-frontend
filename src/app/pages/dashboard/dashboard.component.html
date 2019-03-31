@@ -107,7 +107,8 @@
           <div class="item" *ngFor="let code of electorateCodes | async">
             {{code.id}}
             <a class="ui teal horizontal label" *ngIf="code.locked === true">locked</a>
-            <a class="icon right floated" (click)="deleteCode(code.id)" *ngIf="code.locked === false">
+            <a class="ui orange horizontal label" *ngIf="code.assigned === true">assigned</a>
+            <a class="icon right floated" (click)="deleteCode(code.id)" *ngIf="!!!code.locked && !!!code.assigned">
               <i class="red minus icon"></i>
             </a>
           </div>

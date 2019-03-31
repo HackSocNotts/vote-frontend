@@ -167,6 +167,7 @@ export class DashboardComponent implements OnInit {
           formatted[i] = {
             id : electorate[i].payload.doc.id,
             locked: electorate[i].payload.doc.data().locked,
+            assigned: electorate[i].payload.doc.data().assigned,
             votes: electorate[i].payload.doc.data().votes
           };
         }
