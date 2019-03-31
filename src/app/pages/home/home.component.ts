@@ -81,6 +81,7 @@ export class HomeComponent implements OnInit {
       const split = this.code.split('-');
       if (split[1] !== this.elector) {
         this.elector = split[1];
+        console.log(this.election + '/electorate/' + this.elector);
         this.electionService.getDocument(this.election + '/electorate/' + this.elector)
           .subscribe(data => {
             if (data === null) {

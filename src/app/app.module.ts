@@ -38,6 +38,7 @@ import { Nl2brPipe } from './pipes/nl2br.pipe';
 import { VoterGuard } from './guards/voter.guard';
 import { CalculateService } from './services/calculate.service';
 import {HttpClientModule} from '@angular/common/http';
+import { GetCodeComponent } from './pages/get-code/get-code.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import {HttpClientModule} from '@angular/common/http';
     ResultsComponent,
     ProccessedResultsComponent,
     ReceivedVotesComponent,
-    Nl2brPipe
+    Nl2brPipe,
+    GetCodeComponent
   ],
   imports: [
     BrowserModule,
