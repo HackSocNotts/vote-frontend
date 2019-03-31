@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {ElectorModel} from '../models/elector-model';
 import {Observable} from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable()
 export class ElectorateService {
 
   constructor(
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private http: HttpClient,
   ) { }
 
   getElectorate(election: string) {
@@ -81,5 +83,10 @@ export class ElectorateService {
     const update = elector;
     update.locked = true;
     document.update(update);
+  }
+
+  getElectorCode(election: string, studentId: number) {
+    const url = `https://us-central1-hacksoc-vote.cloudfunctions.net/AssignCode?election=${election}&student=${studentId}`;
+    return this.http.get(url);
   }
 }

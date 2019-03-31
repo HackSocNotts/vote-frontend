@@ -1,3 +1,38 @@
-<p>
-  get-code works!
-</p>
+<div class="ui container">
+  <div class="ui hidden divider"></div>
+  <div *ngIf="error">
+    <div class="ui negative message">
+      <div class="header">
+        {{error}}
+      </div>
+      <p>{{errorMessage}}</p>
+    </div>
+    <div class="ui hidden divider"></div>
+  </div>
+  <h1 class="ui primary header">Welcome to the HackSoc Voting Serivce</h1>
+  <p>This service a slightly modified version of <a href="https://github.com/Ballot-App">BallotApp.tech</a>.</p>
+  <p>Please enter your 5 digit election code and your 8 digit student ID number to get a ballot code.</p>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui one column center aligned page grid">
+    <div class="column twelve wide" *ngIf="electorCode">
+      {{electorCode}}
+    </div>
+    <div class="column twelve wide" *ngIf="!electorCode">
+      <div class="ui huge input">
+        <input type="text" placeholder="Election Code" [(ngModel)]="code">
+      </div>
+      <div class="ui hidden divider"></div>
+      <div class="ui huge input">
+        <input type="text" placeholder="Student ID Number" [(ngModel)]="idnumber">
+      </div>
+      <div class="ui hidden divider"></div>
+      <button class="ui primary huge button" (click)="getCode()">Get Code</button>
+      <div *ngIf="electionObject">
+        <div class="ui hidden divider"></div>
+        <h2 class="ui teal header" >{{electionObject.name}}</h2>
+        <p>{{electionObject.description}}</p>
+      </div>
+    </div>
+  </div>
+</div>

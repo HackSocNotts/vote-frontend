@@ -5,6 +5,10 @@
       <i class="list icon"></i>
       Ballot
     </a>
+    <a class="item" routerLink="/get-code" *ngIf="isAuthed() === false">
+      <i class="key icon"></i>
+      Get Code
+    </a>
     <a class="item" routerLinkActive="active" routerLink="/results" *ngIf="isAuthed() === true">
       <i class="sitemap icon"></i>
       Results

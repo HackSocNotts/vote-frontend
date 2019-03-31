@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ElectorateService } from '../../services/electorate.service';
 
 @Component({
   selector: 'app-get-code',
@@ -7,9 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GetCodeComponent implements OnInit {
 
-  constructor() { }
+  code: string;
+  idnumber: number;
+
+  error: string;
+  errorMessage: string;
+
+  electorCode: string;
+
+  constructor(
+    private electorate: ElectorateService
+  ) { }
 
   ngOnInit() {
+  }
+
+  getCode() {
+    this.electorate.getElectorCode(this.code, this.idnumber)
+      .subscribe(response => {
+        if (!!response['error']) {
+          this.error = 'Error';
+          this.errorMessage = response['error'];
+        } else {
+          this.electorCode = `${this.code}-${response['code']}`;
+        }
+      });
   }
 
 }
