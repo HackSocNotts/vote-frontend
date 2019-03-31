@@ -16,7 +16,13 @@
   <div class="ui hidden divider"></div>
   <div class="ui one column center aligned page grid">
     <div class="column twelve wide" *ngIf="electorCode">
-      {{electorCode}}
+      <h3>
+        Here is your elector code. Please copy it, as it will not be shown to you again.<br />
+        Click <a routerLink="/">here</a> to go back to the home page.
+      </h3>
+      <div class="ui huge input">
+        <input type="text" placeholder="Election Code" [value]="electorCode" disabled>
+      </div>
     </div>
     <div class="column twelve wide" *ngIf="!electorCode">
       <div class="ui huge input">

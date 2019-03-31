@@ -25,13 +25,19 @@ export class GetCodeComponent implements OnInit {
 
   getCode() {
     this.electorate.getElectorCode(this.code, this.idnumber)
-      .subscribe(response => {
+      .toPromise()
+      .then(response => {
         if (!!response['error']) {
           this.error = 'Error';
           this.errorMessage = response['error'];
         } else {
           this.electorCode = `${this.code}-${response['code']}`;
         }
+      })
+      .catch(err => {
+        console.error(err);
+        this.error = 'Error';
+        this.errorMessage = err.error.error;
       });
   }
 
